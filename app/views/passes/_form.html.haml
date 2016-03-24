@@ -1,0 +1,47 @@
+.row
+  .col.s12
+    = form_for @pass do |f|
+      .row
+        - if @pass.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@pass.errors.count, "error")} prohibited this pass from being saved:"
+            %ul
+              - @pass.errors.full_messages.each do |msg|
+                %li= msg
+
+      .row
+        .input-field.col.s6
+          = f.text_field :name
+          = f.label :name
+
+      .row
+        .input-field.col.s6
+          = f.number_field :price
+          = f.label :price
+
+      .row
+        .input-field.col.s6
+          = f.select :colour, ["#7bd148","#5484ed","#a4bdfc","#46d6db","#7ae7bf","#51b749","#fbd75b","#ffb878","#ff887c","#dc2127","#dbadff","#e1e1e1"], {}, {class: 'colorpicker-shortlist'}
+          = f.label :colour, class: 'colorpicker active'
+
+      .row
+        .input-field.col.s6
+          = f.text_area :description, class: "materialize-textarea"
+          = f.label :description
+
+      .row
+        .col.s6
+          = f.label :events, class: 'active'
+          - events = @pass.events.pluck(:id)
+          - Event.all.each do |event|
+            %p
+              = f.check_box :events, { multiple: true, id: "event-#{event.id}", checked: events.include?(event.id) }, event.id, nil
+              %label{for: "event-#{event.id}"}= event.name
+
+      .row
+        .actions
+          %button.btn{type: 'submit'}
+            Enviar
+            %i.material-icons.right send
+
+          = link_to 'Cancelar', passes_path, class: 'btn-flat'

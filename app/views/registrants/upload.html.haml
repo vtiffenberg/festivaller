@@ -1,0 +1,39 @@
+.row
+  .col.s8
+    %h3 Subir archivo de inscripciones
+
+
+.row
+  .col.s8
+    = form_tag({ action: :bulk_create }, { multipart: true }) do
+      .file-field.input-field
+        .btn
+          %span Elegir
+          = file_field_tag 'csv'
+        .file-path-wrapper
+          %input.file-path{type: 'text'}
+      .input-field.center
+        = submit_tag 'Enviar', class: 'btn'
+
+.row
+  .col.s8
+    - if @result
+      - @result.each do |row|
+        #upload-result
+          %ul.collapsible{"data-collapsible" => "expandable"}
+            %li
+              .collapsible-header
+                - if row[:error]
+                  %i.material-icons> error
+                - elsif row[:existing]
+                  %i.material-icons> done_all
+                - else
+                  %i.material-icons> done
+                = row[:name]
+              .collapsible-body
+                %p
+                  - [:name, :email, :pass_id, :level, :role].each do |property|
+                    %span.label= property
+                    = row[:registrant].send(property)
+                    %br/
+

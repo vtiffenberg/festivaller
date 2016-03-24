@@ -1,0 +1,20 @@
+@import "materialize/components/color";
+$primary-color: color("blue", "darken-3") !default;
+$secondary-color: color("deep-orange", "accent-2") !default;
+
+@import 'materialize';
+@import url(https://fonts.googleapis.com/css?family=Amatic+SC:400,700);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+@import 'upload';
+@import 'tables';
+@import 'colorpicker';
+@import 'forms';
+
+nav .brand-logo {
+  font-family: 'Amatic SC', cursive;
+  font-weight: 700;
+  font-size: 3rem;
+  text-shadow: 0 0 18px #eeeeee;
+  letter-spacing: .08em;
+}

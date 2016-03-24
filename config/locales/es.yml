@@ -1,0 +1,6 @@
+es:
+  activerecord:
+    models:
+      pass: pase
+      discount: descuento
+      event: evento

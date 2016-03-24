@@ -1,0 +1,61 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1.0", :name => "viewport"}/
+    %title Festivaller
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+  %body
+    %nav{:role => "navigation"}
+      .nav-wrapper.container
+        %a#logo-container.brand-logo{:href => "#"} Aires de Blues
+        %ul.right.hide-on-med-and-down
+          %li
+            %a{:href => events_path} Eventos
+          %li
+            %a{:href => passes_path} Pases
+        %ul#nav-mobile.side-nav
+          %li
+            %a{:href => events_path} Eventos
+          %li
+            %a{:href => passes_path} Pases
+        %a.button-collapse{"data-activates" => "nav-mobile", :href => "#"}
+          %i.material-icons menu
+
+    .container
+      = yield
+    / %footer.page-footer
+    /   .container
+    /     .row
+    /       .col.l6.s12
+    /         %h5.white-text Company Bio
+    /         %p.grey-text.text-lighten-4 We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.
+    /       .col.l3.s12
+    /         %h5.white-text Settings
+    /         %ul
+    /           %li
+    /             %a.white-text{:href => "#!"} Link 1
+    /           %li
+    /             %a.white-text{:href => "#!"} Link 2
+    /           %li
+    /             %a.white-text{:href => "#!"} Link 3
+    /           %li
+    /             %a.white-text{:href => "#!"} Link 4
+    /       .col.l3.s12
+    /         %h5.white-text Connect
+    /         %ul
+    /           %li
+    /             %a.white-text{:href => "#!"} Link 1
+    /           %li
+    /             %a.white-text{:href => "#!"} Link 2
+    /           %li
+    /             %a.white-text{:href => "#!"} Link 3
+    /           %li
+    /             %a.white-text{:href => "#!"} Link 4
+    /   .footer-copyright
+    /     .container
+    /       Made by
+    /       %a.orange-text.text-lighten-3{:href => "http://materializecss.com"} Materialize
