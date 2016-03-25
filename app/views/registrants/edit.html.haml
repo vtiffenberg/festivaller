@@ -1,0 +1,46 @@
+%h2= @registrant.name
+
+.row
+  .col.s12
+    = form_for @registrant do |f|
+      .row
+        - if @registrant.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@registrant.errors.count, "error")} prohibited this registrant from being saved:"
+            %ul
+              - @registrant.errors.full_messages.each do |msg|
+                %li= msg
+
+      .row
+        .input-field.col.s6
+          = f.text_field :name
+          = f.label :name
+
+      .row
+        .input-field.col.s6
+          = f.email_field :email
+          = f.label :email
+
+      .row
+        .input-field.col.s6
+          = f.select :level, options_for_select(Registrant.levels.map{|l| [l.capitalize, l]}, @registrant.level), {include_blank: "Elegir"}, {class: 'material'}
+          = f.label :level
+
+      .row
+        .input-field.col.s6
+          = f.select :role, options_for_select(Registrant.roles.map{|r| [r.capitalize, r]}, @registrant.role), {include_blank: "Elegir"}, {class: 'material'}
+          = f.label :role
+
+      .row
+        .input-field.col.s6
+          = f.select :pass_id, options_for_select(Pass.all.map{|p| [p.name, p.id]}, @registrant.pass_id), {include_blank: "Elegir"}, {class: 'material'}
+          = f.label :pass
+
+      .row
+        .actions
+          %button.btn{type: 'submit'}
+            Enviar
+            %i.material-icons.right send
+
+          = link_to 'Cancelar', registrants_path, class: 'btn-flat'
+

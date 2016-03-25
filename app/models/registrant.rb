@@ -42,11 +42,11 @@ class Registrant < ActiveRecord::Base
     }
   end
 
-  def roles
+  def self.roles
     ['leader', 'follower']
   end
 
-  def levels
+  def self.levels
     ['beginner', 'intermediate', 'advanced']
   end
 
@@ -62,13 +62,13 @@ class Registrant < ActiveRecord::Base
   end
 
   def within_role
-    if role.present? && !roles.include?(role)
+    if role.present? && !Registrant.roles.include?(role)
       errors.add(:level, "is invalid")
     end
   end
 
   def within_level
-    if level.present? && !levels.include?(level)
+    if level.present? && !Registrant.levels.include?(level)
       errors.add(:level, "is invalid")
     end
   end

@@ -30,4 +30,8 @@ jQuery(document).ready(function($) {
     selectMonths: true // Creates a dropdown to control month
   });
 
+  $(document).ready(function() {
+    $('select.material').material_select();
+  });
+
 });

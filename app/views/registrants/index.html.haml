@@ -15,13 +15,16 @@
           %th Nombre
           %th Email
           %th Pase
+          %th Nivel
+          %th Rol
           %th Acreditado
 
       %tbody
         - @registrants.each do |registrant|
-          %tr.clickable-row
-            /{'data-href' => edit_event_url(registrant)}
+          %tr.clickable-row{'data-href' => edit_registrant_url(registrant)}
             %td= registrant.name
             %td= registrant.email
             %td= registrant.pass.name
+            %td= registrant.level
+            %td= registrant.role
             %td= registrant.accredited
