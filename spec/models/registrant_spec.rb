@@ -2,30 +2,46 @@ require 'rails_helper'
 
 RSpec.describe Registrant, type: :model do
 
-  def model_csv
+  def full_pass_csv
     File.open('spec/support/formulario.csv')
   end
 
-  before(:each) do
-    Pass.make name: "Pase festival"
+  def couple_pass_csv
+    File.open('spec/support/formulario_pareja.csv')
   end
+
+  let!(:pase_festival) { Pass.make name: "Pase festival" }
+  let!(:pase_pareja) { Pass.make name: "Pase pareja" }
 
   describe "parser" do
 
     it "should parse a single user" do
-      Registrant.parse(model_csv)
+      Registrant.parse(full_pass_csv)
       expect(Registrant.count).to eq(1)
     end
 
     it "should not create duplicates" do
-      Registrant.parse(model_csv)
-      Registrant.parse(model_csv)
+      Registrant.parse(full_pass_csv)
+      Registrant.parse(full_pass_csv)
       expect(Registrant.count).to eq(1)
     end
 
     it "should parse fields with accents in header" do
-      Registrant.parse(model_csv)
+      Registrant.parse(full_pass_csv)
       expect(Registrant.first.email).to eq('mauro.giormenti@gmail.com')
+    end
+
+    it "should add two users for couple" do
+      Registrant.parse(couple_pass_csv)
+      registrants = Registrant.all
+      expect(registrants.count).to eq(2)
+      expect(registrants[0].name).to eq('Pedro Gómez')
+      expect(registrants[1].name).to eq('Juana Pérez')
+      expect(registrants[0].pass).to eq(pase_pareja)
+      expect(registrants[1].pass).to eq(pase_pareja)
+      expect(registrants[1].email).to eq(nil)
+      expect(registrants[0].role).to eq("leader")
+      expect(registrants[1].role).to eq("follower")
     end
 
   end

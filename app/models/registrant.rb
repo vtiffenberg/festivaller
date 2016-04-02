@@ -5,7 +5,8 @@ class Registrant < ActiveRecord::Base
 
   validate :within_role
   validate :within_level
-  validates_presence_of :email, :pass_id
+  validates_presence_of :pass_id
+  validates :email, presence: true, unless: :couple_pass?
 
   def self.parse(file)
     result = []
@@ -16,10 +17,17 @@ class Registrant < ActiveRecord::Base
         reg = Registrant.new name: row[code[:name]],
                           email: row[code[:email]],
                           pass: Pass.find_by_name(row[code[:pass]]),
-                          partner: row[code[:partner]].present? ? row[code[:partner]] : nil,
                           level: find_level(row[code[:level]]),
                           role: row[code[:role]].try(:downcase)
+        if row[code[:partner]].present?
+          reg.partner = row[code[:partner]]
+          partner = Registrant.new name: row[code[:partner]],
+                        pass: Pass.find_by_name(row[code[:pass]]),
+                        level: find_level(row[code[:level]]),
+                        role: opposite_role(row[code[:role]].try(:downcase))
+        end
         if reg.save
+          partner.save if partner
           result << {name: row[code[:name]], registrant: reg}
         else
           result << {name: row[code[:name]], registrant: reg, error: true}
@@ -52,6 +60,16 @@ class Registrant < ActiveRecord::Base
 
   private
 
+  def self.opposite_role(role)
+    if roles[0] == role
+      roles[1]
+    elsif role[1] == role
+      roles[0]
+    else
+      nil
+    end
+  end
+
   def self.find_level(level)
     return nil if level.nil?
     if level.match(/.*spoon.*/)
@@ -59,6 +77,10 @@ class Registrant < ActiveRecord::Base
     elsif level.match(/.*first.*/)
       'beginner'
     end
+  end
+
+  def couple_pass?
+    pass.name == "Pase pareja"
   end
 
   def within_role
