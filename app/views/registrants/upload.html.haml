@@ -15,12 +15,12 @@
       .input-field.center
         = submit_tag 'Enviar', class: 'btn'
 
-.row
-  .col.s8
-    - if @result
-      - @result.each do |row|
-        #upload-result
-          %ul.collapsible{"data-collapsible" => "expandable"}
+- if @result
+  .row
+    .col.s8
+      #upload-result
+        %ul.collapsible{"data-collapsible" => "expandable"}
+          - @result.each do |row|
             %li
               .collapsible-header
                 - if row[:error]
@@ -36,4 +36,13 @@
                     %span.label= property
                     = row[:registrant].send(property)
                     %br/
-
+    .col.s4
+      .reference
+        %i.material-icons done
+        Subido con éxito
+      .reference
+        %i.material-icons done_all
+        Email ya existente
+      .reference
+        %i.material-icons error
+        Error

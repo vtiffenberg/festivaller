@@ -14,22 +14,26 @@ class Registrant < ActiveRecord::Base
       if (r = Registrant.find_by_email(row[code[:email]])).present?
         result << {name: row[code[:name]], registrant: r, existing: true}
       else
-        reg = Registrant.new name: row[code[:name]],
-                          email: row[code[:email]],
+        begin
+          reg = Registrant.new name: row[code[:name]],
+                            email: row[code[:email]],
+                            pass: Pass.find_by_name(row[code[:pass]]),
+                            level: find_level(row[code[:level]]),
+                            role: row[code[:role]].try(:downcase)
+          if row[code[:partner]].present?
+            reg.partner = row[code[:partner]]
+            partner = Registrant.new name: row[code[:partner]],
                           pass: Pass.find_by_name(row[code[:pass]]),
                           level: find_level(row[code[:level]]),
-                          role: row[code[:role]].try(:downcase)
-        if row[code[:partner]].present?
-          reg.partner = row[code[:partner]]
-          partner = Registrant.new name: row[code[:partner]],
-                        pass: Pass.find_by_name(row[code[:pass]]),
-                        level: find_level(row[code[:level]]),
-                        role: opposite_role(row[code[:role]].try(:downcase))
-        end
-        if reg.save
-          partner.save if partner
-          result << {name: row[code[:name]], registrant: reg}
-        else
+                          role: opposite_role(row[code[:role]].try(:downcase))
+          end
+          if reg.save
+            partner.save if partner
+            result << {name: row[code[:name]], registrant: reg}
+          else
+            result << {name: row[code[:name]], registrant: reg, error: true}
+          end
+        rescue
           result << {name: row[code[:name]], registrant: reg, error: true}
         end
       end
