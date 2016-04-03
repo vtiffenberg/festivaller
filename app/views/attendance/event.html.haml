@@ -1,0 +1,31 @@
+#attendance
+  .row
+  .row
+    .card-panel.yellow.darken-1
+      %label Paga en puerta
+      %span.count {{ doorCounter }}
+      .arrows
+        %a.top{'v-on:click' => 'nonRegisteredArrival()'} +
+        %a.bottom{'v-on:click' => 'nonRegisteredError()'} -
+
+  .row
+    .center-align
+      %a.btn-large{'v-on:click' => 'showSearch()'}
+        Pre inscripto
+      .chip
+        {{ registeredCounter }}
+        copados
+
+  .row{'v-show' => 'showingSearch', transition: 'fade'}
+    .col6
+      .input-field
+        %input#search{'v-model' => 'search'}
+        %label{for: 'search'}
+          %i.material-icons search
+
+      %ul.collection{'v-show' => 'search != ""'}
+        %li.collection-item{'v-for' => 'user in registrants | filterBy search in "name"'}
+          {{ user.name }}
+
+:javascript
+  window.registrants = #{@registrants.to_json};

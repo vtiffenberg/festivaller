@@ -1,0 +1,10 @@
+.row
+  %ul.collection.with-header
+    %li.collection-header
+      %h4 Evento
+    - @events.each do |event|
+      %li.collection-item
+        %div
+          = event.name
+          = link_to attendance_path(event.id), class: 'secondary-content' do
+            %i.material-icons send

@@ -10,6 +10,7 @@ $secondary-color: color("deep-orange", "accent-2") !default;
 @import 'tables';
 @import 'colorpicker';
 @import 'forms';
+@import 'attendance';
 
 nav .brand-logo {
   font-family: 'Amatic SC', cursive;

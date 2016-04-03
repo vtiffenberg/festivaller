@@ -1,0 +1,58 @@
+#attendance {
+  .card-panel {
+    text-align: left;
+    padding: 0 10px 10px 10px;
+    width: 195px;
+    margin: 35px auto;
+
+    label {
+      text-transform: uppercase;
+    }
+
+    span.count {
+      display: inline-block;
+      font-size: 20px;
+      text-align: center;
+      width: 156px;
+    }
+
+    .arrows {
+      float: right;
+      position:relative;
+      font-size: 20pt;
+
+      .top, .bottom {
+        position: absolute;
+        cursor: pointer;
+      }
+      .top {
+        top: -22px;
+        right: 2px;
+      }
+      .bottom {
+        top: 6px;
+        right: 6px;
+      }
+    }
+  }
+
+  #search {
+    padding-left: 50px;
+  }
+}
+
+/* always present */
+.fade-transition {
+  transition: all .5s ease;
+  overflow: hidden;
+}
+
+/* .expand-enter defines the starting state for entering */
+/* .expand-leave defines the ending state for leaving */
+.fade-enter, .fade-leave {
+  height: 0;
+  padding: 0 10px;
+  opacity: 0;
+}
+
+
