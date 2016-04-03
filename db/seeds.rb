@@ -21,14 +21,14 @@ unless Event.count > 0
   p.events << f1 << f2 << f3
   p = Pass.create name: 'Pase solo', price: '600'
   p.events << c1 << c2 << f1 << f2 << f3
-  p = Pass.create name: 'Sábado completo', price: '500'
+  p = Pass.create name: 'Día festival - sábado', price: '500'
   p.events << c1 << f2
-  p = Pass.create name: 'Domingo completo', price: '500'
+  p = Pass.create name: 'Día festival - domingo', price: '500'
   p.events << c2 << f3
-  p = Pass.create name: 'Fiesta Rural Juke Joint', price: '120'
+  p = Pass.create name: 'Fiesta - viernes', price: '120'
   p.events << f1
-  p = Pass.create name: 'Fiesta Urban Barrelhouse', price: '120'
+  p = Pass.create name: 'Fiesta - sábado', price: '120'
   p.events << f2
-  p = Pass.create name: 'Fiesta Frenchmen St', price: '120'
-  p.events << f1
+  p = Pass.create name: 'Fiesta - domingo', price: '120'
+  p.events << f3
 end
