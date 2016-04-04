@@ -1,0 +1,24 @@
+%h2 Configuración
+
+.row
+  .col.s3
+    = link_to events_path do
+      .card.settings.center-align
+        .card-image
+          %i.material-icons.large today
+        .card-action
+          Eventos
+  .col.s3
+    = link_to passes_path do
+      .card.settings.center-align
+        .card-image
+          %i.material-icons.large payment
+        .card-action
+          Pases
+  .col.s3
+    = link_to registrants_path do
+      .card.settings.center-align
+        .card-image
+          %i.material-icons.large perm_identity
+        .card-action
+          Inscriptos

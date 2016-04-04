@@ -17,3 +17,19 @@ a.delete-small {
     font-size: 15px !important;
   }
 }
+
+.card.settings {
+  box-shadow: none;
+
+  .card-image {
+    padding: 20px 21px 20px 0;
+    color: black;
+  }
+
+  .card-action {
+    color: $secondary-color;
+    margin-right: 20px;
+    transition: color .3s ease;
+    text-transform: uppercase;
+  }
+}

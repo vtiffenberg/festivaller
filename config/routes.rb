@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get 'attendance', to: 'attendance#index'
   get 'attendance/:id', to: 'attendance#event'
 
+  get 'settings', to: 'application#settings'
+
   # You can have the root of your site routed with "root"
   root 'events#index'
 
