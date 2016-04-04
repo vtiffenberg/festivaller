@@ -1,7 +1,7 @@
 #attendance
   .row
   .row
-    .card-panel.yellow.darken-1
+    .card-panel.cyan.darken-2
       %label Paga en puerta
       %span.count {{ doorCounter }}
       .arrows
@@ -9,12 +9,9 @@
         %a.bottom{'v-on:click' => 'nonRegisteredError()'} -
 
   .row
-    .center-align
-      %a.btn-large{'v-on:click' => 'showSearch()'}
-        Pre inscripto
-      .chip
-        {{ registeredCounter }}
-        copados
+    .card-panel.orange.accent-3{'v-on:click' => 'showSearch()'}
+      %label Pre inscripto
+      %span.count {{ registeredCounter }}
 
   .row{'v-show' => 'showingSearch', transition: 'fade'}
     .col6

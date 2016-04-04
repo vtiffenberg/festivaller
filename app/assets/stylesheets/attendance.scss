@@ -7,6 +7,7 @@
 
     label {
       text-transform: uppercase;
+      color: #EEEEEE;
     }
 
     span.count {
@@ -20,6 +21,10 @@
       float: right;
       position:relative;
       font-size: 20pt;
+
+      a {
+        color: #EEEEEE;
+      }
 
       .top, .bottom {
         position: absolute;
@@ -38,6 +43,10 @@
 
   #search {
     padding-left: 50px;
+  }
+
+  .collection {
+    border: none;
   }
 }
 
