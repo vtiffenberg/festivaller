@@ -4,3 +4,21 @@ es:
       pass: pase
       discount: descuento
       event: evento
+      registrant: inscripto
+    attributes:
+      pass:
+        name: nombre
+        price: precio
+        colour: color
+        description: descripción
+        events: eventos
+      event:
+        name: nombre
+        date: fecha
+        time: hora
+      registrant:
+        name: nombre
+        level: nivel
+        role: rol
+        pass: pase
+
