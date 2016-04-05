@@ -3,7 +3,7 @@ class PassesController < ApplicationController
 
   # GET /passes
   def index
-    @passes = Pass.all
+    @passes = Pass.order(price: :desc).all
     @discounts = Discount.all
   end
 

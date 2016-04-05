@@ -3,7 +3,7 @@ class RegistrantsController < ApplicationController
   before_action :set_registrant, only: [:edit, :update]
 
   def index
-    @registrants = Registrant.all
+    @registrants = Registrant.order(:name).all
   end
 
   def upload
