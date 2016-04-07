@@ -5,10 +5,11 @@ $secondary-color: color("orange", "accent-3") !default;
 @import 'materialize';
 @import url(https://fonts.googleapis.com/css?family=Amatic+SC:400,700);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+@import 'colorpicker';
+@import 'clockpicker';
 
 @import 'upload';
 @import 'tables';
-@import 'colorpicker';
 @import 'forms';
 @import 'attendance';
 

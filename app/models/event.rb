@@ -3,6 +3,8 @@ class Event < ActiveRecord::Base
 
   validates_presence_of :name, :date
 
+  attr_accessor :time
+
   def registrants
     registrants = 0
     passes.each do |p|

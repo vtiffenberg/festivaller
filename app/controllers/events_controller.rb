@@ -18,7 +18,8 @@ class EventsController < ApplicationController
   # POST /events
   def create
     @event = Event.new(event_params)
-
+    @event.name = event_params[:name]
+    @event.date = DateTime.parse("#{event_params[:date]} #{event_params[:time]}")
     if @event.save
       redirect_to events_path
     else
@@ -28,7 +29,9 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1
   def update
-    if @event.update(event_params)
+    @event.name = event_params[:name]
+    @event.date = DateTime.parse("#{event_params[:date]} #{event_params[:time]}")
+    if @event.save
       redirect_to events_path
     else
       render :edit
@@ -49,6 +52,6 @@ class EventsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def event_params
-      params[:event].permit(:name, :date)
+      params[:event].permit(:name, :date, :time)
     end
 end

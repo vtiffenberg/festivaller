@@ -16,8 +16,13 @@
 
       .row
         .input-field.col.s6
-          = f.text_field :date, class: 'datepicker'
+          = f.text_field :date, value: @event.date.try(:strftime,'%-d %b, %Y'), class: 'datepicker'
           = f.label :date
+
+      .row
+        .input-field.col.s6
+          = f.text_field :time, value: @event.date.try(:strftime,'%I:%M%p'), class: 'timepicker'
+          = f.label :time
 
       .actions
         %button.btn{type: 'submit'}

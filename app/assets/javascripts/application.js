@@ -34,4 +34,17 @@ jQuery(document).ready(function($) {
     $('select.material').material_select();
   });
 
+  $('.timepicker').pickatime({
+    twelvehour: true,
+    donetext: 'Done',
+    beforeShow: function() {
+      activeElement = $(document.activeElement);
+      activeForm = activeElement.closest('form')[0];
+    },
+    afterDone: function() {
+      activeElement = $(document.activeElement);
+      $(activeElement).enableClientSideValidations();
+    }
+  });
+
 });
