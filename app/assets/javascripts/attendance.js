@@ -14,6 +14,7 @@ $(function() {
 
   // Vue.config.debug = true;
   if($('#attendance').length > 0) {
+    window.onbeforeunload = function() { return 'No querías hacer eso'; };
 
     var doorCounter = Vue.extend({
       data: function() {
@@ -76,12 +77,14 @@ $(function() {
         },
         done: function() {
           this.selected = null;
+          this.search = '';
           this.$dispatch('user-done');
         },
         backFromSelection: function() {
           this.selected = null;
         },
         backFromSearch: function() {
+          this.search = '';
           this.$dispatch('back');
         }
       }
