@@ -10,6 +10,10 @@ RSpec.describe Registrant, type: :model do
     File.open('spec/support/formulario_pareja.csv')
   end
 
+  def unpaid_csv
+    File.open('spec/support/unpaid_csv.csv')
+  end
+
   let!(:pase_festival) { Pass.make name: "Pase festival" }
   let!(:pase_pareja) { Pass.make name: "Pase pareja" }
 
@@ -42,6 +46,18 @@ RSpec.describe Registrant, type: :model do
       expect(registrants[1].email).to eq(nil)
       expect(registrants[0].role).to eq("leader")
       expect(registrants[1].role).to eq("follower")
+    end
+
+    it "should register payment on new users" do
+      Registrant.parse(full_pass_csv)
+      expect(Registrant.first.paid).to eq(true)
+    end
+
+    it "should register payments on old users" do
+      Registrant.parse(unpaid_csv)
+      expect(Registrant.first.paid).to eq(false)
+      Registrant.parse(full_pass_csv)
+      expect(Registrant.first.paid).to eq(true)
     end
 
   end

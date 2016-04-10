@@ -24,11 +24,13 @@
             %li
               .collapsible-header
                 - if row[:error]
-                  %i.material-icons> error
+                  %i.material-icons error
+                - elsif row[:registered_payment]
+                  %i.material-icons toll
                 - elsif row[:existing]
-                  %i.material-icons> done_all
+                  %i.material-icons done_all
                 - else
-                  %i.material-icons> done
+                  %i.material-icons done
                 = row[:name]
               .collapsible-body
                 %p
@@ -46,3 +48,6 @@
       .reference
         %i.material-icons error
         Error
+      .reference
+        %i.material-icons toll
+        Pago registrado

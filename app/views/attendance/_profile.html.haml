@@ -1,0 +1,48 @@
+.row{'v-if' => 'selected != null'}
+  .col.s12#profile
+    .row#pass
+      .col
+        %i#back.material-icons.left.small{'v-on:click' => 'backFromSelection()'} replay
+        %h3{'v-bind:style' => '{ color: selected.colour }'}
+          {{ selected.pass_name }}
+    .row
+      .col.s3.label
+        Nombre
+      .col.s5.value
+        {{ selected.name }}
+    .row
+      .col.s3.label
+        Nivel
+      .col.s5.value
+        {{ selected.level }}
+    .row
+      .col.s3.label
+        Rol
+      .col.s5.value
+        {{ selected.role }}
+    .row
+      .col.s3.label
+        Cinta
+      .col.s5.value
+        .ribbon{'v-bind:style' => '{ backgroundColor: selected.colour }'}
+
+    .row
+      .right.actions
+        %div{'v-if' => '!passCovers(selected.pass_id)'}
+          El pase no cubre este evento
+          .btn-floating.btn-large.red
+            .cross
+        %div{'v-else':''}
+          %div{'v-if' => '!selected.paid'}
+            Pase impago: {{ selected.pass_price }}
+            .btn-floating.btn-large.red{'v-on:click' => 'pay(selected)'}
+              %i.material-icons receipt
+          %div{'v-else':''}
+            %div{'v-if' => 'selected.signed_in'}
+              Ya acreditado!
+              .btn-floating.btn-large.red
+                .cross
+            %div{'v-else':''}
+              Todo bien: acreditar!
+              .btn-floating.btn-large{'v-on:click' => 'signIn(selected)'}
+                %i.material-icons done

@@ -12,7 +12,7 @@ $(function() {
     });
   };
 
-  // Vue.config.debug = true;
+  Vue.config.debug = true;
   if($('#attendance').length > 0) {
     window.onbeforeunload = function() { return 'No querías hacer eso'; };
 
@@ -51,6 +51,7 @@ $(function() {
           registrants: window.registrants,
           selected: null,
           signedIn: [],
+          paidAtTheDoor: [],
           passesWithCover: window.passesWithCover
         }
       },
@@ -67,7 +68,7 @@ $(function() {
           for (index = 0; index < pendingNotifications.length; ++index) {
             var regToNotify = pendingNotifications[index];
             ajaxPost('/registrants/' + regToNotify.id + '/sign_in', function() {
-              pendingNotifications.remove(regToNotify);
+              pendingNotifications.$remove(regToNotify);
             });
           }
           this.done();
@@ -86,6 +87,18 @@ $(function() {
         backFromSearch: function() {
           this.search = '';
           this.$dispatch('back');
+        },
+        pay: function(registrant) {
+          registrant.paid = true;
+          var pendingNotifications = this.paidAtTheDoor;
+          pendingNotifications.push(registrant);
+          var index;
+          for (index = 0; index < pendingNotifications.length; ++index) {
+            var regToNotify = pendingNotifications[index];
+            ajaxPost('/registrants/' + regToNotify.id + '/pay', function() {
+              pendingNotifications.$remove(regToNotify);
+            });
+          }
         }
       }
     });

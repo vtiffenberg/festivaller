@@ -12,14 +12,21 @@ class Registrant < ActiveRecord::Base
     result = []
     CSV.foreach(file, headers: true, encoding: 'UTF-8') do |row|
       if (r = Registrant.find_by_email(row[code[:email]])).present?
-        result << {name: row[code[:name]], registrant: r, existing: true}
+        saved_payment = false
+        if !r.paid && row[code[:paid]]
+          r.paid = true
+          r.save
+          saved_payment = true
+        end
+        result << {name: row[code[:name]], registrant: r, existing: true, registered_payment: saved_payment}
       else
         begin
           reg = Registrant.new name: row[code[:name]],
                             email: row[code[:email]],
                             pass: Pass.find_by_name(row[code[:pass]]),
                             level: find_level(row[code[:level]]),
-                            role: row[code[:role]].try(:downcase)
+                            role: row[code[:role]].try(:downcase),
+                            paid: row[code[:paid]].present?
           if row[code[:partner]].present?
             reg.partner = row[code[:partner]]
             partner = Registrant.new name: row[code[:partner]],
@@ -28,8 +35,11 @@ class Registrant < ActiveRecord::Base
                           role: opposite_role(row[code[:role]].try(:downcase))
           end
           if reg.save
-            partner.save if partner
             result << {name: row[code[:name]], registrant: reg}
+            if partner
+              partner.save
+              result << {name: row[code[:partner]], registrant: partner}
+            end
           else
             result << {name: row[code[:name]], registrant: reg, error: true}
           end
@@ -50,7 +60,8 @@ class Registrant < ActiveRecord::Base
       level: "Cuál es tu nivel",
       role: "Elegí tu rol",
       sat_class: "Clase optativa sábado",
-      sun_class: "Clase optativa domingo"
+      sun_class: "Clase optativa domingo",
+      paid: "Pago"
     }
   end
 
@@ -67,7 +78,7 @@ class Registrant < ActiveRecord::Base
   def self.opposite_role(role)
     if roles[0] == role
       roles[1]
-    elsif role[1] == role
+    elsif roles[1] == role
       roles[0]
     else
       nil

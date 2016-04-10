@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     end
     member do
       post :sign_in
+      post :pay
     end
   end
 
