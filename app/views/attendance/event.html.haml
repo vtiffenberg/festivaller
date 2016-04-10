@@ -61,14 +61,19 @@
 
           .row
             .right.actions
-              .ok{'v-if' => '!selected.signed_in'}
-                Todo bien: acreditar!
-                .btn-floating.btn-large{'v-on:click' => 'signIn(selected)'}
-                  %i.material-icons done
-              .not{'v-else':""}
-                Ya acreditado!
+              %div{'v-if' => '!passCovers(selected.pass_id)'}
+                El pase no cubre este evento
                 .btn-floating.btn-large.red
-                  x
+                  .cross
+              %div{'v-else':''}
+                %div{'v-if' => 'selected.signed_in'}
+                  Ya acreditado!
+                  .btn-floating.btn-large.red
+                    .cross
+                %div{'v-if':'!selected.signed_in'}
+                  Todo bien: acreditar!
+                  .btn-floating.btn-large{'v-on:click' => 'signIn(selected)'}
+                    %i.material-icons done
 
 
 :javascript
@@ -76,3 +81,4 @@
   window.eventId = #{@event.id};
   window.doorCounter = #{@event.unregistered_attendees};
   window.registeredAttendees = #{@registrants.select{|r| r.signed_in}.count};
+  window.passesWithCover = #{@passes_with_cover.to_json};

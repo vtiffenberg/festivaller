@@ -9,8 +9,10 @@ class AttendanceController < ApplicationController
   end
 
   def event
+    @show_event_in_navbar = true
     @event = Event.find(params[:id])
-    @registrants = Registrant.joins(:pass).select('registrants.name, level, role, passes.name AS pass_name, colour, registrants.id, signed_in').order('registrants.name').all
+    @registrants = Registrant.joins(:pass).select('registrants.name, level, role, passes.name AS pass_name, colour, registrants.id, signed_in, pass_id').order('registrants.name').all
+    @passes_with_cover = Pass.for_event(@event.id).pluck(:id)
   end
 
   private

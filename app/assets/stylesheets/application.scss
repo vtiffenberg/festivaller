@@ -21,3 +21,27 @@ nav .brand-logo {
   text-shadow: 0 0 18px #eeeeee;
   letter-spacing: .08em;
 }
+
+nav .brand-logo#event-name {
+  font-family: "Roboto", sans-serif;
+  font-weight: lighter;
+  font-size: 16px;
+  text-shadow: none;
+  letter-spacing: normal;
+}
+
+// For inside round buttons
+.cross {
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+}
+.cross:after {
+    position:relative;
+    content:"\d7";
+    font-size:31px;
+    color:white;
+    font-weight:lighter;
+    left: 3px;
+    top: -3px;
+}

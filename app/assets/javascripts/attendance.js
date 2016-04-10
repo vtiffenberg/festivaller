@@ -49,7 +49,8 @@ $(function() {
           search: '',
           registrants: window.registrants,
           selected: null,
-          signedIn: []
+          signedIn: [],
+          passesWithCover: window.passesWithCover
         }
       },
       methods: {
@@ -69,6 +70,9 @@ $(function() {
             });
           }
           this.done();
+        },
+        passCovers: function(pass) {
+          return this.passesWithCover.indexOf(pass) > 0;
         },
         done: function() {
           this.selected = null;
