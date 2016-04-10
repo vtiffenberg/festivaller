@@ -1,13 +1,21 @@
 Rails.application.routes.draw do
 
-  resources :events, except: :show
   resources :passes, except: :show
   resources :discounts, only: [:new, :create, :destroy]
+
+  resources :events, except: :show do
+    member do
+      post :arrival_count
+    end
+  end
 
   resources :registrants, only: [:index, :edit, :update] do
     collection do
       get :upload
       post :bulk_create
+    end
+    member do
+      post :sign_in
     end
   end
 

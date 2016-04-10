@@ -1,7 +1,7 @@
 #attendance {
   .card-panel {
     text-align: left;
-    padding: 0 10px 10px 10px;
+    padding: 8px 15px 15px 15px;
     width: 195px;
     height: 155px;
     margin: 35px auto;
@@ -9,19 +9,21 @@
     label {
       text-transform: uppercase;
       color: #EEEEEE;
+      font-size: 14px;
     }
 
     span.count {
       display: inline-block;
-      font-size: 20px;
+      font-size: 40px;
       text-align: center;
       width: 156px;
+      line-height: 100px;
     }
 
     .arrows {
       float: right;
       position:relative;
-      font-size: 20pt;
+      font-size: 30pt;
 
       a {
         color: #EEEEEE;
@@ -32,12 +34,12 @@
         cursor: pointer;
       }
       .top {
-        top: -22px;
+        top: -7px;
         right: 2px;
       }
       .bottom {
-        top: 6px;
-        right: 6px;
+        top: 60px;
+        right: 9px;
       }
     }
   }
@@ -57,9 +59,24 @@
     cursor: pointer;
   }
 
+  i#back {
+    margin-top: 29px;
+    color: $label-color;
+    cursor: pointer;
+  }
+
   #profile {
+    .row {
+      padding: 10px;
+    }
     #pass {
       margin-left: 73px;
+      h3 {
+        display: inline;
+      }
+    }
+    i#back {
+      margin-top: 8px;
     }
     .label {
       text-align: right;
@@ -69,12 +86,18 @@
     .value {
       font-size: 18px;
     }
-
     .ribbon {
       width: 300px;
       height: 10px;
       border-radius: 100px / 50px;
       margin-top: 9px;
+      background-color: $label-color;
+    }
+    .actions {
+      font-size: 16px;
+      .btn-floating {
+        margin: 0px 20px;
+      }
     }
   }
 }

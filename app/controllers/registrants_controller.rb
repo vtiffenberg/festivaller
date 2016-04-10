@@ -1,6 +1,6 @@
 class RegistrantsController < ApplicationController
 
-  before_action :set_registrant, only: [:edit, :update]
+  before_action :set_registrant, only: [:edit, :update, :sign_in]
 
   def index
     @registrants = Registrant.order(:name).all
@@ -26,6 +26,12 @@ class RegistrantsController < ApplicationController
     end
   end
 
+  def sign_in
+    @registrant.signed_in = true
+    @registrant.save!
+    render nothing: true
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
@@ -35,7 +41,7 @@ class RegistrantsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def registrant_params
-      params[:registrant].permit(:name, :email, :pass, :level, :role)
+      params[:registrant].permit(:name, :email, :pass, :level, :role, :sign_in)
     end
 
 end

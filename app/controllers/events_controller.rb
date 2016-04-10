@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:edit, :update, :destroy]
+  before_action :set_event, only: [:edit, :update, :destroy, :arrival_count]
 
   # GET /events
   def index
@@ -42,6 +42,12 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     redirect_to events_url
+  end
+
+  def arrival_count
+    @event.unregistered_attendees = params['door_counter']
+    @event.save!
+    render nothing: true
   end
 
   private
