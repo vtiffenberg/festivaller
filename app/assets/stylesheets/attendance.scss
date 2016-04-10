@@ -3,6 +3,7 @@
     text-align: left;
     padding: 0 10px 10px 10px;
     width: 195px;
+    height: 155px;
     margin: 35px auto;
 
     label {
@@ -45,18 +46,42 @@
     padding-left: 50px;
   }
 
-  .collection {
+  #results {
     border: none;
+    li {
+      cursor: pointer;
+    }
   }
 
   #registrantSearch {
     cursor: pointer;
   }
+
+  #profile {
+    #pass {
+      margin-left: 73px;
+    }
+    .label {
+      text-align: right;
+      color: $label-color;
+      font-size: 18px;
+    }
+    .value {
+      font-size: 18px;
+    }
+
+    .ribbon {
+      width: 300px;
+      height: 10px;
+      border-radius: 100px / 50px;
+      margin-top: 9px;
+    }
+  }
 }
 
 /* always present */
 .fade-transition {
-  transition: all .5s ease;
+  transition: all .2s ease;
   overflow: hidden;
 }
 
@@ -68,4 +93,15 @@
   opacity: 0;
 }
 
+.slide-transition {
+  transition: all .3s ease;
+  height: 200px;
+  overflow: hidden;
+}
+
+.slide-enter, .slide-leave {
+  height: 0;
+  padding: 0 10px;
+  opacity: 0.5;
+}
 

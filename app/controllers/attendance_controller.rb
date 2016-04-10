@@ -10,7 +10,7 @@ class AttendanceController < ApplicationController
 
   def event
     @event = Event.find(params[:id])
-    @registrants = Registrant.order(:name).all
+    @registrants = Registrant.joins(:pass).select('registrants.name, level, role, passes.name AS pass_name, colour').order('registrants.name').all
   end
 
   private
