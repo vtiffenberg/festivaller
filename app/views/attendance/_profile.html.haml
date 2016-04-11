@@ -38,11 +38,11 @@
             .btn-floating.btn-large.red{'v-on:click' => 'pay(selected)'}
               %i.material-icons receipt
           %div{'v-else':''}
-            %div{'v-if' => 'selected.signed_in'}
+            %div{'v-if' => 'selected && selected.signed_in'}
               Ya acreditado!
               .btn-floating.btn-large.red
                 .cross
-            %div{'v-else':''}
+            %div{'v-if':'selected && !selected.signed_in'}
               Todo bien: acreditar!
               .btn-floating.btn-large{'v-on:click' => 'signIn(selected)'}
                 %i.material-icons done

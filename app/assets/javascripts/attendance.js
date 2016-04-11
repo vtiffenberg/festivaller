@@ -74,12 +74,12 @@ $(function() {
           this.done();
         },
         passCovers: function(pass) {
-          return this.passesWithCover.indexOf(pass) > 0;
+          return this.passesWithCover.indexOf(pass) > -1;
         },
         done: function() {
-          this.selected = null;
-          this.search = '';
           this.$dispatch('user-done');
+          this.search = '';
+          this.selected = null;
         },
         backFromSelection: function() {
           this.selected = null;
