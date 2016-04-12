@@ -47,5 +47,5 @@ group :test do
   gem 'machinist', '~> 1.0'
   gem 'faker'
   gem 'timecop'
-  # gem 'simplecov', :require => false
+  gem 'simplecov', :require => false
 end
