@@ -4,8 +4,8 @@ $secondary-color: color("orange", "accent-3") !default;
 $label-color: #9e9e9e;
 
 @import 'materialize';
-// @import url(https://fonts.googleapis.com/css?family=Amatic+SC:400,700);
-// @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+@import url(https://fonts.googleapis.com/css?family=Amatic+SC:400,700);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 @import 'colorpicker';
 @import 'clockpicker';
 
