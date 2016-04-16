@@ -1,0 +1,21 @@
+.row
+  .card.col.s5
+    .card-content
+      %span.card-title Entrar
+      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+        .input-field
+          = f.email_field :email, autofocus: true
+          = f.label :email
+        .input-field
+          = f.password_field :password, autocomplete: "off"
+          = f.label :password
+        - if devise_mapping.rememberable?
+          .input-field.left
+            = f.check_box :remember_me
+            = f.label :remember_me
+        .right
+          = f.submit "OK", class: "btn", style: "margin-top: 20px;"
+        .row
+    .card-action
+      .center
+        = render "devise/shared/links"

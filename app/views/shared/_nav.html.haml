@@ -1,4 +1,7 @@
-%li{class: ['events', 'registrants', 'passes', 'application'].include?(params['controller']) ? 'active' : ''}
-  %a{href: settings_path} Configuración
-%li{class: params['controller'] == 'attendance' ? 'active' : ''}
-  %a{href: attendance_path} Show time!
+- if user_signed_in?
+  %li
+    = link_to('Salir', destroy_user_session_path, :method => :delete)
+  %li{class: ['events', 'registrants', 'passes', 'application'].include?(params['controller']) ? 'active' : ''}
+    %a{href: settings_path} Configuración
+  %li{class: params['controller'] == 'attendance' ? 'active' : ''}
+    %a{href: attendance_path} Show time!

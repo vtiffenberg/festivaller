@@ -31,4 +31,7 @@ unless Event.count > 0
   p.events << f2
   p = Pass.create name: 'Fiesta - domingo', price: '120'
   p.events << f3
+
+  User.new email: 'valetiff@gmail.com', password: '12345678'
+  User.new email: 'fnemina@gmail.com', password: '12345678'
 end
