@@ -19,7 +19,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.name = event_params[:name]
-    @event.date = DateTime.parse("#{event_params[:date]} #{event_params[:time]}") if event_params[:date]
+    @event.date = DateTime.parse("#{event_params[:date]} #{event_params[:time]} -0300") if event_params[:date]
     if @event.save
       redirect_to events_path
     else
