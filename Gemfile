@@ -48,3 +48,5 @@ group :test do
   gem 'faker'
   gem 'simplecov', :require => false
 end
+
+gem 'rails_12factor', group: :production
