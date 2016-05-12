@@ -15,3 +15,7 @@ Registrant.blueprint do
   email { Faker::Internet.email }
   pass
 end
+
+User.blueprint do
+  email { Faker::Internet.email }
+end

@@ -41,6 +41,9 @@ RSpec.describe PassesController, type: :controller do
   # PassesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  let(:user) { User.make }
+  before(:each) { sign_in user }
+
   describe "GET #index" do
     it "assigns all passes as @passes" do
       pass = Pass.create! valid_attributes

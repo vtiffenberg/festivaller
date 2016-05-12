@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe AttendanceController, type: :controller do
 
+  let(:user) { User.make }
+  before(:each) { sign_in user }
+
   describe "event happening" do
 
     it "should select event correctly" do
