@@ -4,6 +4,12 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1.0", :name => "viewport"}/
     %title Festivaller
+    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js"}
+    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"}
+    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"}
+    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.2/es6-shim.min.js"}
+    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.2/es6-sham.min.js"}
+    %script{:src => "https://wzrd.in/standalone/es7-shim@latest"}
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
