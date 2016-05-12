@@ -14,7 +14,7 @@ $(function() {
 
   Vue.config.debug = true;
   if($('#attendance').length > 0) {
-    window.onbeforeunload = function() { return 'No querías hacer eso'; };
+    // window.onbeforeunload = function() { return 'No querías hacer eso'; };
 
     var doorCounter = Vue.extend({
       data: function() {
