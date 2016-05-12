@@ -61,16 +61,16 @@ $(function() {
           this.$dispatch('user-selected');
         },
         signIn: function(registrant) {
-          // registrant.signed_in = true;
-          // var pendingNotifications = this.signedIn;
-          // pendingNotifications.push(registrant);
-          // var index;
-          // for (index = 0; index < pendingNotifications.length; ++index) {
-          //   var regToNotify = pendingNotifications[index];
-          //   ajaxPost('/registrants/' + regToNotify.id + '/sign_in', function() {
-          //     pendingNotifications.$remove(regToNotify);
-          //   });
-          // }
+          registrant.signed_in = true;
+          var pendingNotifications = this.signedIn;
+          pendingNotifications.push(registrant);
+          var index;
+          for (index = 0; index < pendingNotifications.length; ++index) {
+            var regToNotify = pendingNotifications[index];
+            ajaxPost('/registrants/' + regToNotify.id + '/sign_in', function() {
+              pendingNotifications.$remove(regToNotify);
+            });
+          }
           this.done();
         },
         passCovers: function(pass) {
@@ -89,16 +89,16 @@ $(function() {
           this.$dispatch('back');
         },
         pay: function(registrant) {
-          // registrant.paid = true;
-          // var pendingNotifications = this.paidAtTheDoor;
-          // pendingNotifications.push(registrant);
-          // var index;
-          // for (index = 0; index < pendingNotifications.length; ++index) {
-          //   var regToNotify = pendingNotifications[index];
-          //   ajaxPost('/registrants/' + regToNotify.id + '/pay', function() {
-          //     pendingNotifications.$remove(regToNotify);
-          //   });
-          // }
+          registrant.paid = true;
+          var pendingNotifications = this.paidAtTheDoor;
+          pendingNotifications.push(registrant);
+          var index;
+          for (index = 0; index < pendingNotifications.length; ++index) {
+            var regToNotify = pendingNotifications[index];
+            ajaxPost('/registrants/' + regToNotify.id + '/pay', function() {
+              pendingNotifications.$remove(regToNotify);
+            });
+          }
         }
       }
     });
