@@ -12,7 +12,7 @@ $(function() {
     });
   };
 
-  Vue.config.debug = true;
+  // Vue.config.debug = true;
   if($('#attendance').length > 0) {
     // window.onbeforeunload = function() { return 'No querías hacer eso'; };
 
