@@ -30,7 +30,7 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   def update
     @event.name = event_params[:name]
-    @event.date = DateTime.parse("#{event_params[:date]} #{event_params[:time]}") if event_params[:date]
+    @event.date = DateTime.parse("#{event_params[:date]} #{event_params[:time]} -0300") if event_params[:date]
     if @event.save
       redirect_to events_path
     else
