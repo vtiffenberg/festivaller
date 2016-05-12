@@ -70,7 +70,7 @@ $(function() {
           //   ajaxPost('/registrants/' + regToNotify.id + '/sign_in', function() {
           //     pendingNotifications.$remove(regToNotify);
           //   });
-          }
+          // }
           this.done();
         },
         passCovers: function(pass) {
