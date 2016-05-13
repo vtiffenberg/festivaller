@@ -7,8 +7,8 @@ class Event < ActiveRecord::Base
 
   def registrants
     registrants = 0
-    passes.each do |p|
-      registrants += p.registrants.count
+    passes.uniq.each do |pass|
+      registrants += pass.registrants.count
     end
     registrants
   end

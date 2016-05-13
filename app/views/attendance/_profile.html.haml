@@ -24,7 +24,7 @@
       .col.s3.label
         Cinta
       .col.s5.value
-        .ribbon{'v-bind:style' => '{ backgroundColor: selected.colour }'}
+        .ribbon{'v-show' => 'selected.colour', 'v-bind:style' => '{ backgroundColor: selected.colour }'}
 
     .row
       .right.actions

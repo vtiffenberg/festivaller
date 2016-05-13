@@ -49,6 +49,7 @@ $(function() {
         return {
           search: '',
           registrants: window.registrants,
+          eventId: window.eventId,
           selected: null,
           signedIn: [],
           paidAtTheDoor: [],
@@ -97,7 +98,7 @@ $(function() {
             var regToNotify = pendingNotifications[index];
             ajaxPost('/registrants/' + regToNotify.id + '/pay', function() {
               pendingNotifications.$remove(regToNotify);
-            });
+            }, {event_id: this.eventId});
           }
         }
       }

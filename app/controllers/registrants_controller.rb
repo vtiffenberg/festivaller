@@ -34,6 +34,7 @@ class RegistrantsController < ApplicationController
 
   def pay
     @registrant.paid = true
+    @registrant.paid_at_event = params[:event_id]
     @registrant.save!
     render nothing: true
   end
@@ -47,7 +48,7 @@ class RegistrantsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def registrant_params
-      params[:registrant].permit(:name, :email, :pass, :level, :role, :signed_in, :paid)
+      params[:registrant].permit(:name, :email, :pass, :level, :role, :signed_in, :paid, :paid_at_event)
     end
 
 end
