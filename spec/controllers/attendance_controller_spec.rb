@@ -16,7 +16,7 @@ RSpec.describe AttendanceController, type: :controller do
       e = Event.make date: DateTime.now - 1.hour
       get :index
 
-      expect(response).to redirect_to(attendance_path(e.id))
+      expect(response).to redirect_to(event_attendance_path(e.id))
     end
 
     it "should show all events if it isn't" do
