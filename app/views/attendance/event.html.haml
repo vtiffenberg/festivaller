@@ -36,5 +36,5 @@
   window.registrants = #{@registrants.to_json};
   window.eventId = #{@event.id};
   window.doorCounter = #{@event.unregistered_attendees};
-  window.registeredAttendees = #{@registrants.select{|r| r.signed_in}.count};
+  window.registeredAttendees = #{@registrants.select{|r| r.signed_in && @passes_with_cover.include?(r.pass_id)}.count};
   window.passesWithCover = #{@passes_with_cover.to_json};

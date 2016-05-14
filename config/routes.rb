@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   end
 
   get 'attendance', to: 'attendance#index'
-  get 'attendance/:id', to: 'attendance#event'
+  get 'attendance/:id', to: 'attendance#event', as: 'event_attendance'
 
   get 'settings', to: 'application#settings'
 

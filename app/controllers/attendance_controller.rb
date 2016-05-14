@@ -3,7 +3,7 @@ class AttendanceController < ApplicationController
   def index
     current = event_happening_now
     if current
-      redirect_to attendance_path(current.id)
+      redirect_to event_attendance_path(current.id)
     else
       @events = Event.all
     end
