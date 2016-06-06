@@ -7,8 +7,15 @@ RSpec.describe AttendanceController, type: :controller do
 
   describe "event happening" do
 
-    it "should select event correctly" do
+    it "should select an event" do
       e = Event.make date: DateTime.now - 1.hour
+      expect(@controller.instance_eval{ event_happening_now }).to eq(e)
+    end
+
+    it "should select the last event happening" do
+      Event.make date: (DateTime.now - 24.hours)
+      Event.make date: (DateTime.now - 12.hours)
+      e = Event.make date: (DateTime.now - 2.hours)
       expect(@controller.instance_eval{ event_happening_now }).to eq(e)
     end
 
