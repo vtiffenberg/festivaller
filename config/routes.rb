@@ -31,6 +31,6 @@ Rails.application.routes.draw do
   get 'settings', to: 'application#settings'
 
   # You can have the root of your site routed with "root"
-  root 'events#index'
+  root 'application#public_home'
 
 end
