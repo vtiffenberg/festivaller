@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512215435) do
+ActiveRecord::Schema.define(version: 20160606233506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,10 @@ ActiveRecord::Schema.define(version: 20160512215435) do
     t.datetime "end"
     t.float    "percentage"
     t.string   "name"
+    t.integer  "season"
   end
+
+  add_index "discounts", ["season"], name: "index_discounts_on_season", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "name"
@@ -29,7 +32,10 @@ ActiveRecord::Schema.define(version: 20160512215435) do
     t.integer  "unregistered_attendees"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "season"
   end
+
+  add_index "events", ["season"], name: "index_events_on_season", using: :btree
 
   create_table "events_passes", id: false, force: :cascade do |t|
     t.integer "event_id"
@@ -46,7 +52,10 @@ ActiveRecord::Schema.define(version: 20160512215435) do
     t.string   "colour"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "season"
   end
+
+  add_index "passes", ["season"], name: "index_passes_on_season", using: :btree
 
   create_table "registrants", force: :cascade do |t|
     t.string   "name"
@@ -60,6 +69,19 @@ ActiveRecord::Schema.define(version: 20160512215435) do
     t.string   "role"
     t.boolean  "paid",          default: false
     t.integer  "paid_at_event"
+    t.integer  "season"
+  end
+
+  add_index "registrants", ["season"], name: "index_registrants_on_season", using: :btree
+
+  create_table "seasons", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.text     "extras"
+    t.boolean  "current",    default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "users", force: :cascade do |t|

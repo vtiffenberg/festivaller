@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :seasons
   devise_for :users, skip: [:registrations]#, controllers: { registrations: :registrations }
   as :user do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
