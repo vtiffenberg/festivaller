@@ -1,5 +1,5 @@
 class SeasonsController < ApplicationController
-  before_action :set_season, only: [:show, :edit, :update, :destroy]
+  before_action :set_season, except: [:index, :new, :create]
 
   # GET /seasons
   def index
@@ -32,6 +32,14 @@ class SeasonsController < ApplicationController
       redirect_to seasons_path
     else
       render :edit
+    end
+  end
+
+  def set_current
+    if @season.set_as_current
+      redirect_to seasons_path
+    else
+      redirect_to seasons_path, notice: "No se pudo cambiar"
     end
   end
 

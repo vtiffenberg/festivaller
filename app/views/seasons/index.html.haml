@@ -21,6 +21,10 @@
         - @seasons.each do |season|
           %tr.clickable-row{'data-href' => edit_season_url(season)}
             %td= season.name
-            %td= "#{season.start_date.strftime('%d/%m')} - #{season.end_date.strftime('%d/%m')}"
+            %td= "#{season.start_date.strftime('%d/%m')} a #{season.end_date.strftime('%d/%m')}"
             %td= season.extras
-            %td= season.current ? "ACTUAL" : "Usar como actual"
+            %td
+              - if season.current
+                %i.material-icons check
+              - else
+                %i.material-icons swap_horiz

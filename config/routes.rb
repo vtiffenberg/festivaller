@@ -6,7 +6,11 @@ Rails.application.routes.draw do
     patch 'users' => 'devise/registrations#update', :as => 'user_registration'
   end
   resources :passes, except: :show
-  resources :seasons, except: :show
+  resources :seasons, except: :show do
+    member do
+      post :set_current
+    end
+  end
 
   resources :events, except: :show do
     member do

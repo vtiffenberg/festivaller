@@ -1,3 +1,11 @@
-%h2= @season.name
+.row
+  .col.s8
+    %h2= @season.name
+  .col.s4
+    .right
+      %h2
+      = link_to set_current_season_path(@season), class: "btn-floating btn-large" do
+        %i.material-icons swap_horiz
+
 
 = render 'form'
