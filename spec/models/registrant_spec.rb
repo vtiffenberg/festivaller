@@ -14,6 +14,7 @@ RSpec.describe Registrant, type: :model do
     File.open('spec/support/unpaid_csv.csv')
   end
 
+  let!(:s) { Season.make }
   let!(:pase_festival) { Pass.make name: "Pase festival" }
   let!(:pase_pareja) { Pass.make name: "Pase pareja" }
 
@@ -72,6 +73,24 @@ RSpec.describe Registrant, type: :model do
     it "should allow valid values in role" do
       r = Registrant.make_unsaved role: 'leader', pass: Pass.first
       expect(r).to be_valid
+    end
+  end
+
+  describe 'show current season' do
+    it 'scope should return only passes for current' do
+      s2 = Season.make current: false
+      p1 = Registrant.make season: s
+      p2 = Registrant.make season: s2
+
+      expect(Registrant.current.to_a).to eq([p1])
+    end
+
+    it "should be the default" do
+      s2 = Season.make current: false
+      p1 = Registrant.make season: s
+      p2 = Registrant.make season: s2
+
+      expect(Registrant.all.to_a).to eq([p1])
     end
   end
 

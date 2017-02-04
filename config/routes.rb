@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :seasons
   devise_for :users, skip: [:registrations]#, controllers: { registrations: :registrations }
   as :user do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
     patch 'users' => 'devise/registrations#update', :as => 'user_registration'
   end
   resources :passes, except: :show
+  resources :seasons, except: :show
   resources :discounts, only: [:new, :create, :destroy]
 
   resources :events, except: :show do

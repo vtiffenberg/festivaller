@@ -19,3 +19,8 @@ end
 User.blueprint do
   email { Faker::Internet.email }
 end
+
+Season.blueprint do
+  name { "2016" }
+  current { true }
+end

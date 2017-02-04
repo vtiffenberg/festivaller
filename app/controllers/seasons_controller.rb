@@ -6,10 +6,6 @@ class SeasonsController < ApplicationController
     @seasons = Season.all
   end
 
-  # GET /seasons/1
-  def show
-  end
-
   # GET /seasons/new
   def new
     @season = Season.new
@@ -53,6 +49,6 @@ class SeasonsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def season_params
-      params[:season]
+      params[:season].permit(:name, :start_date, :end_date, :extras)
     end
 end

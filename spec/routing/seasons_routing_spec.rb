@@ -11,10 +11,6 @@ RSpec.describe SeasonsController, type: :routing do
       expect(:get => "/seasons/new").to route_to("seasons#new")
     end
 
-    it "routes to #show" do
-      expect(:get => "/seasons/1").to route_to("seasons#show", :id => "1")
-    end
-
     it "routes to #edit" do
       expect(:get => "/seasons/1/edit").to route_to("seasons#edit", :id => "1")
     end

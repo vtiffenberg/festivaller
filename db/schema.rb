@@ -21,10 +21,10 @@ ActiveRecord::Schema.define(version: 20160606233506) do
     t.datetime "end"
     t.float    "percentage"
     t.string   "name"
-    t.integer  "season"
+    t.integer  "season_id"
   end
 
-  add_index "discounts", ["season"], name: "index_discounts_on_season", using: :btree
+  add_index "discounts", ["season_id"], name: "index_discounts_on_season_id", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "name"
@@ -32,10 +32,10 @@ ActiveRecord::Schema.define(version: 20160606233506) do
     t.integer  "unregistered_attendees"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "season"
+    t.integer  "season_id"
   end
 
-  add_index "events", ["season"], name: "index_events_on_season", using: :btree
+  add_index "events", ["season_id"], name: "index_events_on_season_id", using: :btree
 
   create_table "events_passes", id: false, force: :cascade do |t|
     t.integer "event_id"
@@ -52,10 +52,10 @@ ActiveRecord::Schema.define(version: 20160606233506) do
     t.string   "colour"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "season"
+    t.integer  "season_id"
   end
 
-  add_index "passes", ["season"], name: "index_passes_on_season", using: :btree
+  add_index "passes", ["season_id"], name: "index_passes_on_season_id", using: :btree
 
   create_table "registrants", force: :cascade do |t|
     t.string   "name"
@@ -69,10 +69,10 @@ ActiveRecord::Schema.define(version: 20160606233506) do
     t.string   "role"
     t.boolean  "paid",          default: false
     t.integer  "paid_at_event"
-    t.integer  "season"
+    t.integer  "season_id"
   end
 
-  add_index "registrants", ["season"], name: "index_registrants_on_season", using: :btree
+  add_index "registrants", ["season_id"], name: "index_registrants_on_season_id", using: :btree
 
   create_table "seasons", force: :cascade do |t|
     t.string   "name"

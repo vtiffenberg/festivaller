@@ -24,11 +24,11 @@ RSpec.describe SeasonsController, type: :controller do
   # Season. As you add validations to Season, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { name: "Season 1" }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { name: nil }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -36,19 +36,14 @@ RSpec.describe SeasonsController, type: :controller do
   # SeasonsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  let(:user) { User.make }
+  before(:each) { sign_in user }
+
   describe "GET #index" do
     it "assigns all seasons as @seasons" do
       season = Season.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:seasons)).to eq([season])
-    end
-  end
-
-  describe "GET #show" do
-    it "assigns the requested season as @season" do
-      season = Season.create! valid_attributes
-      get :show, {:id => season.to_param}, valid_session
-      expect(assigns(:season)).to eq(season)
     end
   end
 
