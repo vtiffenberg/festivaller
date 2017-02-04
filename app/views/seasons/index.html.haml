@@ -1,19 +1,26 @@
-%h1 Listing seasons
+.row
+  .col.s8
+    %h2 Ediciones anteriores
+  .col.s4
+    .right
+      %h2
+      = link_to new_season_path, class: "btn-floating btn-large" do
+        %i.material-icons add
 
-%table
-  %thead
-    %tr
-      %th
-      %th
-      %th
+.row
+  .col.s12
+    %table.highlight
+      %thead
+        %tr
+          %th Nombre
+          %th Fecha
+          %th Comentarios
+          %th
 
-  %tbody
-    - @seasons.each do |season|
-      %tr
-        %td= link_to 'Show', season
-        %td= link_to 'Edit', edit_season_path(season)
-        %td= link_to 'Destroy', season, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Season', new_season_path
+      %tbody
+        - @seasons.each do |season|
+          %tr.clickable-row{'data-href' => edit_season_url(season)}
+            %td= season.name
+            %td= "#{season.start_date.strftime('%d/%m')} - #{season.end_date.strftime('%d/%m')}"
+            %td= season.extras
+            %td Usar como actual
