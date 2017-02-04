@@ -23,4 +23,4 @@
             %td= season.name
             %td= "#{season.start_date.strftime('%d/%m')} - #{season.end_date.strftime('%d/%m')}"
             %td= season.extras
-            %td Usar como actual
+            %td= season.current ? "ACTUAL" : "Usar como actual"

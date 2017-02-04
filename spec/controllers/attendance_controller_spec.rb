@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe AttendanceController, type: :controller do
 
   let(:user) { User.make }
-  let(:s) { Season.make }
+  let!(:s) { Season.make }
   before(:each) { sign_in user }
 
   describe "event happening" do

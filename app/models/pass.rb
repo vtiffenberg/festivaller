@@ -6,12 +6,12 @@ class Pass < ActiveRecord::Base
   validates_presence_of :name, :price
   before_create :add_season
 
-  scope :current, -> { where(season_id: Season.current.id ) }
+  scope :current, -> { where(season_id: Season.current_id ) }
   default_scope { current }
   scope :for_event, lambda{|e| current.where("passes.id IN (SELECT events_passes.pass_id FROM events_passes WHERE events_passes.event_id = ?)", e) }
 
   def add_season
-    self.season = Season.current unless self.season
+    self.season_id = Season.current_id unless self.season_id
   end
 
 end

@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Pass, type: :model do
 
+  let!(:s) { Season.make }
   describe 'pass for event' do
 
     it "should return correct passes" do
-      s = Season.make
       p1 = Pass.make season: s
       p2 = Pass.make season: s
       e1 = Event.make season: s
@@ -19,7 +19,6 @@ RSpec.describe Pass, type: :model do
 
   describe 'show current season' do
     it 'scope should return only passes for current' do
-      s = Season.make
       s2 = Season.make current: false
       p1 = Pass.make season: s
       p2 = Pass.make season: s2
@@ -28,7 +27,6 @@ RSpec.describe Pass, type: :model do
     end
 
     it "should be the default" do
-      s = Season.make
       s2 = Season.make current: false
       p1 = Pass.make season: s
       p2 = Pass.make season: s2

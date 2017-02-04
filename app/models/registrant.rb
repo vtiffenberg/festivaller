@@ -10,7 +10,7 @@ class Registrant < ActiveRecord::Base
   validates :email, presence: true, unless: :couple_pass?
   before_create :add_season
 
-  scope :current, -> { where(season_id: Season.current.id ) }
+  scope :current, -> { where(season_id: Season.current_id ) }
   default_scope { current }
 
   def self.parse(file)
@@ -116,7 +116,7 @@ class Registrant < ActiveRecord::Base
   end
 
   def add_season
-    self.season = Season.current unless self.season
+    self.season_id = Season.current_id unless self.season_id
   end
 
 

@@ -76,9 +76,9 @@ RSpec.describe SeasonsController, type: :controller do
         expect(assigns(:season)).to be_persisted
       end
 
-      it "redirects to the created season" do
+      it "redirects to the created season's edit" do
         post :create, {:season => valid_attributes}, valid_session
-        expect(response).to redirect_to(Season.last)
+        expect(response).to redirect_to(edit_season_path(Season.last))
       end
     end
 
@@ -114,10 +114,10 @@ RSpec.describe SeasonsController, type: :controller do
         expect(assigns(:season)).to eq(season)
       end
 
-      it "redirects to the season" do
+      it "redirects to the season list" do
         season = Season.create! valid_attributes
         put :update, {:id => season.to_param, :season => valid_attributes}, valid_session
-        expect(response).to redirect_to(season)
+        expect(response).to redirect_to(seasons_path)
       end
     end
 
@@ -133,21 +133,6 @@ RSpec.describe SeasonsController, type: :controller do
         put :update, {:id => season.to_param, :season => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
-    end
-  end
-
-  describe "DELETE #destroy" do
-    it "destroys the requested season" do
-      season = Season.create! valid_attributes
-      expect {
-        delete :destroy, {:id => season.to_param}, valid_session
-      }.to change(Season, :count).by(-1)
-    end
-
-    it "redirects to the seasons list" do
-      season = Season.create! valid_attributes
-      delete :destroy, {:id => season.to_param}, valid_session
-      expect(response).to redirect_to(seasons_url)
     end
   end
 

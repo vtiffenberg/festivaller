@@ -19,8 +19,8 @@ class SeasonsController < ApplicationController
   def create
     @season = Season.new(season_params)
 
-    if @season.save
-      redirect_to @season, notice: 'Season was successfully created.'
+    if @season.valid? && @season.set_as_current
+      redirect_to edit_season_path(@season)
     else
       render :new
     end
@@ -29,16 +29,10 @@ class SeasonsController < ApplicationController
   # PATCH/PUT /seasons/1
   def update
     if @season.update(season_params)
-      redirect_to @season, notice: 'Season was successfully updated.'
+      redirect_to seasons_path
     else
       render :edit
     end
-  end
-
-  # DELETE /seasons/1
-  def destroy
-    @season.destroy
-    redirect_to seasons_url, notice: 'Season was successfully destroyed.'
   end
 
   private
