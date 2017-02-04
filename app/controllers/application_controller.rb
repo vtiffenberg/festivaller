@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!, except: :public_home
 
   def public_home
-    render 'shared/home'
+    render 'public/home', layout: 'public'
   end
 
   def settings
