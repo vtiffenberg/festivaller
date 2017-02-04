@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   end
   resources :passes, except: :show
   resources :seasons, except: :show
-  resources :discounts, only: [:new, :create, :destroy]
 
   resources :events, except: :show do
     member do

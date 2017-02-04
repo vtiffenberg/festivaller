@@ -4,7 +4,6 @@ class PassesController < ApplicationController
   # GET /passes
   def index
     @passes = Pass.order(price: :desc).all
-    @discounts = Discount.all
   end
 
   # GET /passes/new

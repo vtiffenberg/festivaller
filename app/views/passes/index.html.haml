@@ -4,8 +4,6 @@
   .col.s4
     .right
       %h2
-      = link_to new_discount_path, class: "btn-floating discounts" do
-        %i.material-icons redeem
       = link_to new_pass_path, class: "btn-floating btn-large" do
         %i.material-icons add
 
@@ -15,12 +13,7 @@
       %thead
         %tr
           %th Nombre
-          %th Precio general
-          - @discounts.each do |d|
-            %th
-              = d.name
-              = link_to discount_path(d), method: 'delete', class: 'delete-small' do
-                %i.material-icons delete
+          %th Precio
           %th Color
           %th Descripción
           %th
@@ -30,8 +23,6 @@
           %tr.clickable-row{'data-href' => edit_pass_url(pass)}
             %td= pass.name
             %td= pass.price
-            - @discounts.each do |d|
-              %td= (pass.price - d.percentage / 100 * pass.price).round(2)
             %td
               - if pass.colour.present?
                 .btn-floating.chosen-colour{style: "background-color: #{pass.colour}"}

@@ -11,20 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606233506) do
+ActiveRecord::Schema.define(version: 20170204153144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "discounts", force: :cascade do |t|
-    t.datetime "start"
-    t.datetime "end"
-    t.float    "percentage"
-    t.string   "name"
-    t.integer  "season_id"
-  end
-
-  add_index "discounts", ["season_id"], name: "index_discounts_on_season_id", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "name"

@@ -2,9 +2,9 @@ es:
   activerecord:
     models:
       pass: pase
-      discount: descuento
       event: evento
       registrant: inscripto
+      season: edición
     attributes:
       pass:
         name: nombre
@@ -21,4 +21,9 @@ es:
         level: nivel
         role: rol
         pass: pase
+      season:
+        name: Nombre
+        start_date: Fecha de comienzo
+        end_date: Fecha de fin
+        extras: Comentarios
 
