@@ -2,11 +2,16 @@ require 'csv'
 
 class Registrant < ActiveRecord::Base
   belongs_to :pass
+  belongs_to :season
 
   validate :within_role
   validate :within_level
   validates_presence_of :pass_id
   validates :email, presence: true, unless: :couple_pass?
+  before_create :add_season
+
+  scope :current, -> { where(season_id: Season.current_id ) }
+  default_scope { current }
 
   def self.parse(file)
     result = []
@@ -109,5 +114,10 @@ class Registrant < ActiveRecord::Base
       errors.add(:level, "is invalid")
     end
   end
+
+  def add_season
+    self.season_id = Season.current_id unless self.season_id
+  end
+
 
 end

@@ -1,0 +1,30 @@
+.row
+  .col.s8
+    %h2 Ediciones anteriores
+  .col.s4
+    .right
+      %h2
+      = link_to new_season_path, class: "btn-floating btn-large" do
+        %i.material-icons add
+
+.row
+  .col.s12
+    %table.highlight
+      %thead
+        %tr
+          %th Nombre
+          %th Fecha
+          %th Comentarios
+          %th
+
+      %tbody
+        - @seasons.each do |season|
+          %tr.clickable-row{'data-href' => edit_season_url(season)}
+            %td= season.name
+            %td= "#{season.start_date.strftime('%d/%m')} a #{season.end_date.strftime('%d/%m')}"
+            %td= season.extras
+            %td
+              - if season.current
+                %i.material-icons check
+              - else
+                %i.material-icons swap_horiz

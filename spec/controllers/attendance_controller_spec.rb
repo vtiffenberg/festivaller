@@ -3,31 +3,32 @@ require 'rails_helper'
 RSpec.describe AttendanceController, type: :controller do
 
   let(:user) { User.make }
+  let!(:s) { Season.make }
   before(:each) { sign_in user }
 
   describe "event happening" do
 
     it "should select an event" do
-      e = Event.make date: DateTime.now - 1.hour
+      e = Event.make date: DateTime.now - 1.hour, season: s
       expect(@controller.instance_eval{ event_happening_now }).to eq(e)
     end
 
     it "should select the last event happening" do
-      Event.make date: (DateTime.now - 24.hours)
-      Event.make date: (DateTime.now - 12.hours)
-      e = Event.make date: (DateTime.now - 2.hours)
+      Event.make date: (DateTime.now - 24.hours), season: s
+      Event.make date: (DateTime.now - 12.hours), season: s
+      e = Event.make date: (DateTime.now - 2.hours), season: s
       expect(@controller.instance_eval{ event_happening_now }).to eq(e)
     end
 
     it "should redirect to event if it is happening" do
-      e = Event.make date: DateTime.now - 1.hour
+      e = Event.make date: DateTime.now - 1.hour, season: s
       get :index
 
       expect(response).to redirect_to(event_attendance_path(e.id))
     end
 
     it "should show all events if it isn't" do
-      e = Event.make date: DateTime.now + 2.hours
+      e = Event.make date: DateTime.now + 2.hours, season: s
       get :index
 
       expect(response.status).to eq(200)
@@ -38,9 +39,9 @@ RSpec.describe AttendanceController, type: :controller do
 
   describe "event" do
 
-    let!(:event) { Event.make date: DateTime.now - 2.hours }
-    let!(:pass) { Pass.make }
-    let!(:other_pass) { Pass.make }
+    let!(:event) { Event.make date: DateTime.now - 2.hours, season: s }
+    let!(:pass) { Pass.make season: s }
+    let!(:other_pass) { Pass.make season: s }
 
     before(:each) do
       event.passes << pass
@@ -54,8 +55,8 @@ RSpec.describe AttendanceController, type: :controller do
     end
 
     it "should load all registrants" do
-      r1 = Registrant.make pass: pass
-      r2 = Registrant.make pass: other_pass
+      r1 = Registrant.make pass: pass, season: s
+      r2 = Registrant.make pass: other_pass, season: s
       get :event, id: event.id
 
       regs = assigns(:registrants)
@@ -69,8 +70,8 @@ RSpec.describe AttendanceController, type: :controller do
     end
 
     it "should load registrants in alphabetical order" do
-      r1 = Registrant.make pass: pass, name: 'Andrea'
-      r2 = Registrant.make pass: other_pass, name: 'Romina'
+      r1 = Registrant.make pass: pass, name: 'Andrea', season: s
+      r2 = Registrant.make pass: other_pass, name: 'Romina', season: s
       get :event, id: event.id
 
       regs = assigns(:registrants)

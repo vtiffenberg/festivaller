@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe RegistrantsController, type: :controller do
 
+  let!(:s) { Season.make }
   let(:user) { User.make }
   before(:each) { sign_in user }
 

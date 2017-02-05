@@ -39,6 +39,7 @@ RSpec.describe EventsController, type: :controller do
   # EventsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  let!(:s) { Season.make }
   let(:user) { User.make }
   before(:each) { sign_in user }
 
