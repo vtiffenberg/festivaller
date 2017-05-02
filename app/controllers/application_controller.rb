@@ -3,11 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_action :authenticate_user!, except: :public_home
-
-  def public_home
-    render 'public/home', layout: 'public'
-  end
+  before_action :authenticate_user!
 
   def settings
     render '/shared/settings'
