@@ -4,7 +4,6 @@ class AddInitialSeason < ActiveRecord::Migration
 
     Event.update_all(season_id: s.id)
     Pass.update_all(season_id: s.id)
-    Discount.update_all(season_id: s.id)
     Registrant.update_all(season_id: s.id)
   end
   def down
