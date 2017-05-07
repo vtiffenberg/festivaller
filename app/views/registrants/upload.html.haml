@@ -18,6 +18,10 @@
 - if @result
   .row
     .col.s8
+      = "#{@result.count} procesados: #{@error_count} errores | #{@paid_count} pagos registrados | #{@empty_pass} sin pase"
+      = link_to "(Asignar pases)", empty_pass_registrants_path
+  .row
+    .col.s8
       #upload-result
         %ul.collapsible{"data-collapsible" => "expandable"}
           - @result.each do |row|

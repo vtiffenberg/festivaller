@@ -14,4 +14,15 @@ class Pass < ActiveRecord::Base
     self.season_id = Season.current_id unless self.season_id
   end
 
+  def self.find_by_name(name)
+    return nil if name.nil?
+    if name.match(/.*festival.*/)
+      where("name LIKE (?)", "%festival%").first
+    elsif name.match(/.*fiesta.*/)
+      where("name LIKE (?)", "%fiesta%").first
+    elsif name.match(/.*carta.*/)
+      nil
+    end
+  end
+
 end

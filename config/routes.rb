@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     collection do
       get :upload
       post :bulk_create
+      get :empty_pass
     end
     member do
       post :sign_in

@@ -25,8 +25,8 @@
           %tr.clickable-row{'data-href' => edit_registrant_url(registrant)}
             %td= registrant.name
             %td= registrant.email
-            %td= registrant.pass.name
-            %td= registrant.level
-            %td= registrant.role
+            %td= registrant.pass.try(:name)
+            %td= level_label(registrant.level)
+            %td= role_label(registrant.role)
             %td= registrant.paid ? '✓' : ''
             %td= registrant.signed_in ? '✓' : ''
