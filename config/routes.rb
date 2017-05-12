@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :events, except: :show do
     member do
       post :arrival_count
+      post :attendee_count
     end
   end
 

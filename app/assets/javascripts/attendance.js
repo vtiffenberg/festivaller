@@ -33,13 +33,21 @@ $(function() {
           var url = this.url;
           this.doorCounter += 1;
           ajaxPost(url, function(){}, {door_counter: this.doorCounter});
+          this.$dispatch('attendee-arrived');
         },
         nonRegisteredError: function() {
           if(this.doorCounter > 0) {
             this.doorCounter -= 1;
             var url = this.url;
             ajaxPost(url, function(){}, {door_counter: this.doorCounter});
+            this.$dispatch('attendee-gone');
           }
+        },
+        attendeeGone: function() {
+          this.$dispatch('attendee-gone');
+        },
+        registeredArrival: function() {
+          this.$dispatch('attendee-arrived');
         }
       }
     });
@@ -110,11 +118,12 @@ $(function() {
       data: {
         registeredCounter: window.registeredAttendees,
         showingSearch: false,
-        userSelected: false
+        userSelected: false,
+        currentAttendees: window.currentAttendeeCount
       },
       components: {
         'door-counter': doorCounter,
-        'registrant-search': registrantSearch
+        'registrant-search': registrantSearch,
       },
       methods: {
         showSearch: function() {
@@ -123,6 +132,11 @@ $(function() {
         reset: function() {
           this.userSelected = false;
           this.showingSearch = false;
+        },
+        changeAttendees: function(number) {
+          this.currentAttendees += number;
+          var url = '/events/' + window.eventId + '/attendee_count';
+          ajaxPost(url, function(){}, {current_attendee_count: this.currentAttendees});
         }
       },
       events: {
@@ -132,9 +146,16 @@ $(function() {
         'user-done': function() {
           this.reset();
           this.registeredCounter += 1;
+          this.changeAttendees(1);
         },
         'back': function() {
           this.reset();
+        },
+        'attendee-arrived': function() {
+          this.changeAttendees(1);
+        },
+        'attendee-gone': function() {
+          this.changeAttendees(-1);
         }
       }
     })

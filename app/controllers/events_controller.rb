@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:edit, :update, :destroy, :arrival_count]
+  before_action :set_event, only: [:edit, :update, :destroy, :arrival_count, :attendee_count]
 
   # GET /events
   def index
@@ -46,6 +46,12 @@ class EventsController < ApplicationController
 
   def arrival_count
     @event.unregistered_attendees = params['door_counter']
+    @event.save!
+    render nothing: true
+  end
+
+  def attendee_count
+    @event.current_attendee_count = params['current_attendee_count']
     @event.save!
     render nothing: true
   end

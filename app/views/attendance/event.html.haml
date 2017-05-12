@@ -1,19 +1,30 @@
 #attendance
   .row
-  .row{'v-show' => '!showingSearch', transition: 'slide'}
-    .col.s6
-      %door-counter(inline-template)
-        .card-panel.cyan.darken-2
-          %label Paga en puerta
-          %span.count {{ doorCounter }}
-          .arrows
-            %a.top{'v-on:click' => 'nonRegisteredArrival()'} +
-            %a.bottom{'v-on:click' => 'nonRegisteredError()'} -
+  #main-event{'v-show' => '!showingSearch', transition: 'slide'}
+    .row
+      .col.s6
+        %door-counter(inline-template)
+          .card-panel.cyan.darken-2
+            %label Paga en puerta
+            %span.count {{ doorCounter }}
+            .arrows
+              %a.top{'v-on:click' => 'nonRegisteredArrival()'} +
+              %a.bottom{'v-on:click' => 'nonRegisteredError()'} -
 
-    .col
-      #registrantSearch.card-panel.orange.accent-3{'v-on:click' => 'showSearch()'}
-        %label Pre inscripto
-        %span.count {{ registeredCounter }}
+      .col
+        #registrantSearch.card-panel.orange.accent-3{'v-on:click' => 'showSearch()'}
+          %label Pre inscripto
+          %span.count {{ registeredCounter }}
+
+    .row
+      .col.s12
+        %door-counter(inline-template)
+          %button.btn.btn-large.grey{'v-on:click' => 'attendeeGone()'} Se fue alguien
+          %button.btn.btn-large{'v-on:click' => 'registeredArrival()'} Llegó alguien con pulserita!
+        %span.current-count
+          En este momento hay
+          %b {{ currentAttendees }}
+          en el salón
 
   .row{'v-show' => 'showingSearch', transition: 'fade'}
     %registrant-search(inline-template)
@@ -35,6 +46,7 @@
 :javascript
   window.registrants = #{@registrants.to_json};
   window.eventId = #{@event.id};
-  window.doorCounter = #{@event.unregistered_attendees};
+  window.doorCounter = #{@event.unregistered_attendees || 0};
   window.registeredAttendees = #{@registrants.select{|r| r.signed_in && @passes_with_cover.include?(r.pass_id)}.count};
   window.passesWithCover = #{@passes_with_cover.to_json};
+  window.currentAttendeeCount = #{@event.current_attendee_count};
