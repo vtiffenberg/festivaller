@@ -5,7 +5,6 @@ class Registrant < ActiveRecord::Base
   belongs_to :season
 
   validate :within_role
-  validate :within_level
   validates :email, presence: true, unless: :couple_pass?
   before_create :add_season
 
@@ -14,45 +13,48 @@ class Registrant < ActiveRecord::Base
 
   def self.parse(file)
     result = []
+    mapping = code
     CSV.foreach(file, headers: true, encoding: 'UTF-8') do |row|
-      if (r = Registrant.find_by_email(row[code[:email]])).present?
+      if (r = Registrant.find_by_email(row[mapping[:email]])).present?
         saved_payment = false
-        if !r.paid && row[code[:paid]]
+        if !r.paid && row[mapping[:paid]]
           r.paid = true
           r.save
           saved_payment = true
         end
-        result << {name: row[code[:name]], registrant: r, existing: true, registered_payment: saved_payment}
+        result << {name: row[mapping[:name]], registrant: r, existing: true, registered_payment: saved_payment}
       else
         begin
-          reg = Registrant.new name: row[code[:name]],
-                            email: row[code[:email]],
-                            pass: Pass.find_by_name(row[code[:pass]]),
-                            level: find_level(row[code[:level]]),
-                            role: find_role(row[code[:role]]),
-                            paid: row[code[:paid]].present?
-          if row[code[:partner]].present?
-            reg.partner = row[code[:partner]]
-            partner = Registrant.new name: row[code[:partner]],
-                          pass: Pass.find_by_name(row[code[:pass]]),
-                          level: find_level(row[code[:level]]),
-                          role: opposite_role(row[code[:role]].try(:downcase))
-          end
+          reg = Registrant.new name: row[mapping[:name]],
+                            email: row[mapping[:email]],
+                            pass: Pass.find_by_name(row[mapping[:pass]]),
+                            level: row[mapping[:level]],
+                            role: find_role(row[mapping[:role]]),
+                            paid: row[mapping[:paid]].present?
+          puts "ROW", row[mapping[:pass]]
+          puts "FIND PASS", Pass.find_by_name(row[mapping[:pass]])
+          # if row[mapping[:partner]].present?
+          #   reg.partner = row[mapping[:partner]]
+          #   partner = Registrant.new name: row[mapping[:partner]],
+          #                 pass: Pass.find_by_name(row[mapping[:pass]]),
+          #                 level: row[mapping[:level]],
+          #                 role: opposite_role(row[mapping[:role]].try(:downcase))
+          # end
           if reg.save
             if reg.pass.blank?
-              result << {name: row[code[:name]], registrant: reg, warning: :empty_pass}
+              result << {name: row[mapping[:name]], registrant: reg, warning: :empty_pass}
             else
-              result << {name: row[code[:name]], registrant: reg}
+              result << {name: row[mapping[:name]], registrant: reg}
             end
-            if partner
-              partner.save
-              result << {name: row[code[:partner]], registrant: partner}
-            end
+            # if partner
+            #   partner.save
+            #   result << {name: row[mapping[:partner]], registrant: partner}
+            # end
           else
-            result << {name: row[code[:name]], registrant: reg, error: true}
+            result << {name: row[mapping[:name]], registrant: reg, error: true}
           end
         rescue
-          result << {name: row[code[:name]], registrant: reg, error: true}
+          result << {name: row[mapping[:name]], registrant: reg, error: true}
         end
       end
     end
@@ -60,18 +62,22 @@ class Registrant < ActiveRecord::Base
   end
 
   def self.code
-    {
-      name: "Nombre y Apellido",
-      email: "Correo electrónico",
-      pass: "Pase",
-      partner: "Nombre de tu pareja",
-      level: "Cuál es tu nivel",
-      role: "Elegí tu rol primario para las clases",
-      sat_class: "Clase optativa sábado",
-      sun_class: "Clase optativa domingo",
-      paid: "Cuanto",
-      activities: "¿A que actividades querés venir?"
-    }
+    if Season.current.upload_fields.empty?
+      {
+        name: "Nombre y Apellido",
+        email: "Correo electrónico",
+        pass: "Pase",
+        partner: "Nombre de tu pareja",
+        level: "Cuál es tu nivel",
+        role: "Elegí tu rol primario para las clases",
+        sat_class: "Clase optativa sábado",
+        sun_class: "Clase optativa domingo",
+        paid: "Cuanto",
+        activities: "¿A que actividades querés venir?"
+      }
+    else
+      @code ||= Season.current.upload_fields_hash.with_indifferent_access
+    end
   end
 
   def self.roles
@@ -79,7 +85,7 @@ class Registrant < ActiveRecord::Base
   end
 
   def self.levels
-    ['beginner', 'intermediate', 'advanced']
+    Season.current.levels || ['beginner', 'intermediate', 'advanced']
   end
 
   private
@@ -94,6 +100,7 @@ class Registrant < ActiveRecord::Base
     end
   end
 
+  # Deprecated
   def self.find_level(level)
     return nil if level.nil?
     if level.match(/.*spoon.*/i)
@@ -118,12 +125,6 @@ class Registrant < ActiveRecord::Base
 
   def within_role
     if role.present? && !Registrant.roles.include?(role)
-      errors.add(:level, "is invalid")
-    end
-  end
-
-  def within_level
-    if level.present? && !Registrant.levels.include?(level)
       errors.add(:level, "is invalid")
     end
   end

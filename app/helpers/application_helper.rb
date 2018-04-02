@@ -17,6 +17,8 @@ module ApplicationHelper
       "Intermedios"
     when 'advanced'
       "Avanzados"
+    else
+      level
     end
   end
 end

@@ -22,6 +22,8 @@ class Pass < ActiveRecord::Base
       where("name LIKE (?)", "%fiesta%").first
     elsif name.match(/.*carta.*/)
       nil
+    else
+      Pass.find_by(name: name)
     end
   end
 

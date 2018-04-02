@@ -29,8 +29,68 @@
           = f.text_area :extras, class: 'materialize-textarea'
           = f.label :extras
 
+      .row
+        .col
+          %h4 Mapeo entre campos obligatorios y columnas en el CSV
+
+      .row
+        .input-field.col.s6
+          = f.text_field :upload_field_name, value: @season.upload_fields_hash["name"]
+          = f.label :upload_field_name
+
+      .row
+        .input-field.col.s6
+          = f.text_field :upload_field_email, value: @season.upload_fields_hash["email"]
+          = f.label :upload_field_email
+
+      .row
+        .input-field.col.s6
+          = f.text_field :upload_field_pass, value: @season.upload_fields_hash["pass"]
+          = f.label :upload_field_pass
+
+      .row
+        .input-field.col.s6
+          = f.text_field :upload_field_partner, value: @season.upload_fields_hash["partner"]
+          = f.label :upload_field_partner
+
+      .row
+        .input-field.col.s6
+          = f.text_field :upload_field_level, value: @season.upload_fields_hash["level"]
+          = f.label :upload_field_level
+          .row
+            .input-field.col.s12
+              .chips
+              = f.label :upload_field_level_options, "Nombres de los niveles"
+              = f.hidden_field :upload_field_level_options, value: "", id: "level_options"
+
+      .row
+        .input-field.col.s6
+          = f.text_field :upload_field_role, value: @season.upload_fields_hash["role"]
+          = f.label :upload_field_role
+
+      .row
+        .input-field.col.s6
+          = f.text_field :upload_field_paid, value: @season.upload_fields_hash["paid"]
+          = f.label :upload_field_paid
+
       .actions
-        %button.btn{type: 'submit'}
+        %button#season.btn{type: 'submit'}
           Enviar
 
         = link_to 'Cancelar', seasons_path, class: 'btn-flat'
+
+
+:javascript
+
+  jQuery(document).ready(function($) {
+    $('.chips').material_chip({
+      data: #{@season.upload_fields_hash["level_options"].map{|op| {tag: op} }.to_json}
+    });
+
+    $('button#season').on('click', function(e){
+      e.preventDefault()
+      var val = $('.chips').material_chip('data');
+      $('#level_options').val($.map(val, function(el){ return el.tag }));
+      $('form')[0].submit();
+    })
+  })

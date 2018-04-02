@@ -26,4 +26,11 @@ es:
         start_date: Fecha de comienzo
         end_date: Fecha de fin
         extras: Comentarios
+        upload_field_name: Nombre del inscripto
+        upload_field_email: Email
+        upload_field_pass: Pase
+        upload_field_partner: Pareja
+        upload_field_level: Nivel
+        upload_field_role: Rol
+        upload_field_paid: Cuánto pagó
 
