@@ -31,25 +31,12 @@ class Registrant < ActiveRecord::Base
                             level: row[mapping[:level]],
                             role: find_role(row[mapping[:role]]),
                             paid: row[mapping[:paid]].present?
-          puts "ROW", row[mapping[:pass]]
-          puts "FIND PASS", Pass.find_by_name(row[mapping[:pass]])
-          # if row[mapping[:partner]].present?
-          #   reg.partner = row[mapping[:partner]]
-          #   partner = Registrant.new name: row[mapping[:partner]],
-          #                 pass: Pass.find_by_name(row[mapping[:pass]]),
-          #                 level: row[mapping[:level]],
-          #                 role: opposite_role(row[mapping[:role]].try(:downcase))
-          # end
           if reg.save
             if reg.pass.blank?
               result << {name: row[mapping[:name]], registrant: reg, warning: :empty_pass}
             else
               result << {name: row[mapping[:name]], registrant: reg}
             end
-            # if partner
-            #   partner.save
-            #   result << {name: row[mapping[:partner]], registrant: partner}
-            # end
           else
             result << {name: row[mapping[:name]], registrant: reg, error: true}
           end

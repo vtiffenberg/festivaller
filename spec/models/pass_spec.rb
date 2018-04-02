@@ -17,6 +17,29 @@ RSpec.describe Pass, type: :model do
     end
   end
 
+  describe "find by name" do
+
+    it "should find legacy hardcoded passes" do
+      p1 = Pass.make season: s, name: "festival completo"
+      expect(Pass.find_by_name("Pase festival!")).to eq(p1)
+    end
+
+    it "should return nil if a la carte" do
+      p = Pass.make season: s, name: "festival completo"
+      expect(Pass.find_by_name("A la carte")).to be_nil
+    end
+
+    it "should find passes by exact name" do
+      p1 = Pass.make season: s, name: "Open [Para todo los niveles - sin audición]"
+      expect(Pass.find_by_name("Open [Para todo los niveles - sin audición]")).to eq(p1)
+    end
+
+    # Aspirational
+    # it "should find passes by text set by user" do
+    # end
+
+  end
+
   describe 'show current season' do
     it 'scope should return only passes for current' do
       s2 = Season.make current: false

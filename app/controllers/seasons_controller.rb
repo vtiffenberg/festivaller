@@ -63,7 +63,7 @@ class SeasonsController < ApplicationController
     def fill_options(season, params)
       hsh = season.upload_fields_hash
       UploadField.option_codes.each do |code|
-        season.upload_fields.find{|field| field.code == code}.options = params["upload_field_#{code}_options"].split(",")
+        season.upload_fields.find{|field| field.code == code}.options = (params["upload_field_#{code}_options"] || "").split(",")
       end
       season
     end
