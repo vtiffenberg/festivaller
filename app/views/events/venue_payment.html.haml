@@ -1,0 +1,31 @@
+.row
+.row
+.row
+  .col.s12
+    #venue-payment
+      .phrase Precio de la entrada (
+      .input-field.inline
+        %input{'v-model' => 'ticket'}
+      .phrase
+        ) * 0.3 ( 30% ) *
+      .row
+        .col.1
+        .col
+          .phrase
+            [ Asistentes con pulsera (
+            = @event.registered_attendees
+            ) + Pagos en puerta (
+            = @event.unregistered_attendees
+            ) - Fran - Vale - Músicos (
+          .input-field.inline
+            %input{'v-model' => 'musician_count'}
+          .phrase
+            ) ]
+      .phrase
+        %h5 Porcentaje para la sala:
+      .input-field.inline
+        %input{'v-model' => 'result'}
+
+:javascript
+  window.registered_attendes = #{@event.registered_attendees};
+  window.unregistered_attendes = #{@event.unregistered_attendees};

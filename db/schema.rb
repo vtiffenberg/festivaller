@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180316102659) do
+ActiveRecord::Schema.define(version: 20180408164528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20180316102659) do
     t.datetime "updated_at",                         null: false
     t.integer  "season_id"
     t.integer  "current_attendee_count", default: 0
+    t.integer  "registered_attendees",   default: 0
   end
 
   add_index "events", ["season_id"], name: "index_events_on_season_id", using: :btree

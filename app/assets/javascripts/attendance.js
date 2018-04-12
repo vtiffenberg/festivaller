@@ -7,7 +7,7 @@ $(function() {
       url: url,
       data: toSend,
       success: function(data){
-        callback(data);
+        if(callback) callback(data);
       }
     });
   };
@@ -24,22 +24,23 @@ $(function() {
         }
       },
       computed: {
-        url: function() {
+        unregistered_url: function() {
           return '/events/' + this.eventId + '/arrival_count';
+        },
+        registered_url: function() {
+          return '/events/' + this.eventId + '/registered_count';
         }
       },
       methods: {
         nonRegisteredArrival: function() {
-          var url = this.url;
           this.doorCounter += 1;
-          ajaxPost(url, function(){}, {door_counter: this.doorCounter});
+          ajaxPost(this.unregistered_url, function(){}, {door_counter: this.doorCounter});
           this.$dispatch('attendee-arrived');
         },
         nonRegisteredError: function() {
           if(this.doorCounter > 0) {
             this.doorCounter -= 1;
-            var url = this.url;
-            ajaxPost(url, function(){}, {door_counter: this.doorCounter});
+            ajaxPost(this.unregistered_url, function(){}, {door_counter: this.doorCounter});
             this.$dispatch('attendee-gone');
           }
         },
@@ -47,6 +48,8 @@ $(function() {
           this.$dispatch('attendee-gone');
         },
         registeredArrival: function() {
+          this.registeredArrivals += 1;
+          ajaxPost(this.registered_url);
           this.$dispatch('attendee-arrived');
         }
       }
@@ -137,6 +140,9 @@ $(function() {
           this.currentAttendees += number;
           var url = '/events/' + window.eventId + '/attendee_count';
           ajaxPost(url, function(){}, {current_attendee_count: this.currentAttendees});
+        },
+        addRegisteredCount: function() {
+          ajaxPost('/events/' + window.eventId + '/registered_count');
         }
       },
       events: {
@@ -147,6 +153,7 @@ $(function() {
           this.reset();
           this.registeredCounter += 1;
           this.changeAttendees(1);
+          this.addRegisteredCount();
         },
         'back': function() {
           this.reset();

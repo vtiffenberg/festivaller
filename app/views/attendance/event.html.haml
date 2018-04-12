@@ -25,7 +25,8 @@
           En este momento hay
           %b {{ currentAttendees }}
           en el salón
-        %p.red-text.text-darken-2 (MAX 87 incluyendo a TODOS. Hay que restar a profes y músicos - cuentan como con pulserita)
+        %p.red-text.text-darken-2 (MAX 87 incluyendo a TODOS. Profes y músicos cuentan como con pulserita)
+        %p= link_to "Cálculo de pago a la sala", venue_payment_event_path, class: "grey-text text-darken-1"
 
   .row{'v-show' => 'showingSearch', transition: 'fade'}
     %registrant-search(inline-template)
@@ -48,6 +49,7 @@
   window.registrants = #{@registrants.to_json};
   window.eventId = #{@event.id};
   window.doorCounter = #{@event.unregistered_attendees || 0};
+  window.registeredArrivals = #{@event.registered_attendees || 0};
   window.registeredAttendees = #{@registrants.select{|r| r.signed_in && @passes_with_cover.include?(r.pass_id)}.count};
   window.passesWithCover = #{@passes_with_cover.to_json};
   window.currentAttendeeCount = #{@event.current_attendee_count};
