@@ -3,7 +3,7 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    @events = Event.order(date: :asc).all
+    @events = Event.where(season: Season.current).order(date: :asc).all
   end
 
   # GET /events/new

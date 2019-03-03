@@ -4,7 +4,7 @@
   .col.s4
     .right
       %h2
-      = link_to set_current_season_path(@season), class: "btn-floating btn-large" do
+      = link_to set_current_season_path(@season), class: "btn-floating btn-large", method: :post do
         %i.material-icons swap_horiz
 
 

@@ -3,7 +3,7 @@ class PassesController < ApplicationController
 
   # GET /passes
   def index
-    @passes = Pass.order(price: :desc).all
+    @passes = Pass.where(season: Season.current).order(price: :desc).all
   end
 
   # GET /passes/new

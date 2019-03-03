@@ -24,9 +24,11 @@
           = f.text_field :time, value: @event.date.try(:strftime,'%I:%M%p'), class: 'timepicker'
           = f.label :time
 
-      .row
-        .col.s6
-          = link_to "Cálculo de pagos", venue_payment_event_path
+      - if !@event.new_record?
+        .row
+          .col.s6
+            = link_to "Cálculo de pagos", venue_payment_event_path
+  
       .actions
         %button.btn{type: 'submit'}
           Enviar
