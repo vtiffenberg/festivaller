@@ -20,3 +20,13 @@ Open `http://localhost:3000`.
 ### Running specs
 
 To run specs `$ docker-compose exec app rspec`.
+
+### Restore backups
+
+```
+$ docker-compose exec app rake db:drop db:create
+$ docker-compose exec db bash
+   # pg_restore --no-privileges --no-owner -U postgres -d festivaller_development -1 /src/backupDBfestivaller
+```
+
+Note: If the `backup.sql` is stored in this project folder, then `/src/backup.sql` is the path to use.
