@@ -1,0 +1,40 @@
+version: '2.0'
+
+x-defaults:
+  base: &base
+    platform: linux/amd64
+    image: bcardiff/themis:devenv-recovery-clean
+    environment:
+      RAILS_ENV:
+      FESTIVALLER_DATABASE_HOST: db
+      FESTIVALLER_DATABASE_USER: postgres
+      FESTIVALLER_DATABASE_PASSWORD: postgres
+    pid: host
+    working_dir: /src
+    depends_on:
+      - db
+    volumes:
+      - .:/src
+      - bundle:/usr/local/bundle
+
+services:
+  app:
+    <<: *base
+    ports:
+      - "3000:3000"
+    command: /bin/sh -c 'bundle exec ./bin/rails s -b 0.0.0.0'
+
+  db:
+    platform: linux/amd64
+    image: postgres:12.14-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - db:/var/lib/postgresql/data
+      - .:/src # to load backups
+
+volumes:
+  db:
+  bundle:

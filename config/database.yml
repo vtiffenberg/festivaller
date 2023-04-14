@@ -20,6 +20,9 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
+  host: <%= ENV['FESTIVALLER_DATABASE_HOST'] %>
+  username: <%= ENV['FESTIVALLER_DATABASE_USER'] %>
+  password: <%= ENV['FESTIVALLER_DATABASE_PASSWORD'] %>
 
 development:
   <<: *default
@@ -37,7 +40,7 @@ development:
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
-  #host: localhost
+  # host: localhost
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
@@ -79,7 +82,4 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: festivaller_production
-  username: festivaller
-  password: <%= ENV['FESTIVALLER_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>

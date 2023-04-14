@@ -6,6 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Season.create(name: "2023").set_as_current
+
 unless Event.count > 0
   # c1 = Event.create name: 'Clases sábado', date: DateTime.new(2016,5,14,13,30)
   # c2 = Event.create name: 'Clases domingo', date: DateTime.new(2016,5,15,13,30)
