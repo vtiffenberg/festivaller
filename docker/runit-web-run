@@ -1,0 +1,6 @@
+#!/bin/bash
+WEB_BIND_URI="${WEB_BIND_URI:-unix:///var/run/app.sock}"
+
+source /etc/envvars
+cd /app
+exec bundle exec ./bin/rails s -e $RAILS_ENV -b $WEB_BIND_URI

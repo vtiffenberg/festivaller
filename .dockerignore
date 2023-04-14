@@ -1,0 +1,8 @@
+.bundle
+.git
+tmp
+log
+vendor/cache
+docker-compose.*.yml
+docker-compose.override.yml
+backupDB*

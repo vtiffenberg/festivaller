@@ -30,3 +30,10 @@ $ docker-compose exec db bash
 ```
 
 Note: If the `backup.sql` is stored in this project folder, then `/src/backup.sql` is the path to use.
+
+## Release
+
+```
+$ docker build . -t bcardiff/festivaller:<tag>
+$ docker push bcardiff/festivaller:<tag>
+```
